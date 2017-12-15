@@ -9,7 +9,7 @@ public class Runner {
 
     public static void main(String[] args){
         TestNG testng = new TestNG();
-        List<String> suites = new ArrayList<>();
+        List<String> suites = new ArrayList<String>();
         suites.add("scenarios/testng.xml");
         testng.setTestSuites(suites);
         testng.setOutputDirectory("target/test-output");
