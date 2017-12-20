@@ -19,14 +19,14 @@ public class LoginPageSteps {
     }
 
     public void authorization(String login, String password){
-        this.driver.findElement(By.xpath("//input[@type='email']")).sendKeys(login);
+        driver.findElement(By.xpath("//input[@type='email']")).sendKeys(login);
         driver.findElement(By.xpath("//div[@id='identifierNext']/content/span")).click();
         ExplicitWait.explicitWaitForElement(driver, 10, By.xpath("//input[@type='password']"));
         driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);
         driver.findElement(By.xpath("//div[@id='passwordNext']/content/span")).click();
+        ExplicitWait.explicitWaitForElement(driver, 10, By.cssSelector("span.gbii"));
         Assert.assertTrue(DOMElementPresence.isElementPresent(driver,By.id("gb_71")),"Login failed.");
     }
-
 
     public void logout() {
         driver.findElement(By.cssSelector("span.gbii")).click();

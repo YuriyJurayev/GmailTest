@@ -3,7 +3,6 @@ package kz.epam.atm.gmailtest.tests;
 import kz.epam.atm.gmailtest.property.PropertyProvider;
 import kz.epam.atm.gmailtest.steps.GmailPageSteps;
 import kz.epam.atm.gmailtest.steps.LoginPageSteps;
-import org.openqa.selenium.By;
 
 import org.testng.annotations.Test;
 
@@ -23,7 +22,7 @@ public class GmailTest extends BaseTest{
         gmailPage.sendMail();
         gmailPage.verifyDraftMailAbsence();
         gmailPage.verifySentMailExistence();
-        gmailPage.deleteEmail(By.xpath("//div[@role='main']//table[@class='F cf zt']//tr[1]//div[@class='T-Jo-auh']"));
+        gmailPage.deleteEmail();
         loginPage.logout();
     }
 
