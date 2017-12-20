@@ -36,7 +36,7 @@ public class GmailPageSteps {
         driver.findElement(by).click();
     }
 
-    private String getEmailAttributeText(By mailLocator,By attributeLocator){ 
+    private String getEmailAttributeText(By mailLocator,By attributeLocator){
         driver.findElement(mailLocator).click();
         return driver.findElement(attributeLocator).getText();
     }
