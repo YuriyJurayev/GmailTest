@@ -36,7 +36,7 @@ public class GmailPageSteps {
         driver.findElement(by).click();
     }
 
-    private String getDraftMailAttributeText(By mailLocator,By attributeLocator){
+    private String getEmailAttributeText(By mailLocator,By attributeLocator){ 
         driver.findElement(mailLocator).click();
         return driver.findElement(attributeLocator).getText();
     }
@@ -47,9 +47,9 @@ public class GmailPageSteps {
         navigateToMailBoxFolder(draftFolderLink);
         ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.xpath("//div[@role='main']//div[@class='yW']/font"));
         Assert.assertTrue(DOMElementPresence.isElementPresent(driver,eMailLocator),"Draft mail not found.");
-        Assert.assertEquals(getDraftMailAttributeText(eMailLocator,By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
-        Assert.assertEquals(getDraftMailAttributeText(eMailLocator,By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
-        Assert.assertEquals(getDraftMailAttributeText(eMailLocator,By.cssSelector("div.LW-avf")), body,"Mail body is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.LW-avf")), body,"Mail body is not equal.");
     }
     public void verifyDraftMailAbsence(){
         navigateToMailBoxFolder(draftFolderLink);
