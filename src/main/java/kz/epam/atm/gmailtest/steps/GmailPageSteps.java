@@ -21,7 +21,7 @@ public class GmailPageSteps {
     public void composeEMail(String recipients,String subject,String body) {
         driver.findElement(By.cssSelector("div.z0>div")).click();
         By emailField = By.cssSelector("textarea.vO");
-        ExplicitWait.explicitWaitForElement(driver, 10, emailField);
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, emailField);
         driver.findElement(emailField).click();
         driver.findElement(emailField).sendKeys(recipients);
         By bodyField = By.cssSelector("div.LW-avf");
@@ -45,7 +45,7 @@ public class GmailPageSteps {
     }
     public void verifyDraftMailExistence(String recipients,String subject,String body){
         navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitForElement(driver, 10, By.xpath("//div[@role='main']//div[@class='yW']/font"));
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.xpath("//div[@role='main']//div[@class='yW']/font"));
         Assert.assertTrue(DOMElementPresence.isElementPresent(driver,eMailLocator),"Draft mail not found.");
         Assert.assertEquals(getDraftMailAttributeText(eMailLocator,By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
         Assert.assertEquals(getDraftMailAttributeText(eMailLocator,By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
@@ -53,7 +53,7 @@ public class GmailPageSteps {
     }
     public void verifyDraftMailAbsence(){
         navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitForElement(driver,5,By.cssSelector("table.cf.TB td.TC"));
+        ExplicitWait.explicitWaitVisibilityOfElement(driver,5,By.cssSelector("table.cf.TB td.TC"));
         Assert.assertFalse(DOMElementPresence.isElementPresent(driver,eMailLocator),"Found draft mail in the draft folder.");
     }
     public void verifySentMailExistence(){
