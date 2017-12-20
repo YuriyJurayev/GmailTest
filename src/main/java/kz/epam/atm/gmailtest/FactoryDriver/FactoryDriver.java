@@ -3,6 +3,7 @@ package kz.epam.atm.gmailtest.FactoryDriver;
 import kz.epam.atm.gmailtest.property.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
@@ -14,8 +15,6 @@ public class FactoryDriver {
     private static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
     private static final String CHROME_DRIVER = "chrome_driver";
     private static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
-    private static final String IE_DRIVER = "ie_driver";
-    private static final String IE_DRIVER_EXE = "ie_driver_exe";
 
     public static WebDriver getCurrentDriver(){
         String browser = PropertyProvider.getProperty("browser");
@@ -23,9 +22,6 @@ public class FactoryDriver {
         switch (browser){
             case "chrome":
                 driver = createChromeDriver();
-                break;
-            case "ie":
-                driver = createIEDriver();
                 break;
             default:
                 driver = createFirefoxDriver();
@@ -46,8 +42,4 @@ public class FactoryDriver {
         return new FirefoxDriver();
     }
 
-    private static WebDriver createIEDriver(){
-        System.setProperty(PropertyProvider.getProperty(IE_DRIVER),PropertyProvider.getProperty(IE_DRIVER_EXE) );
-        return new InternetExplorerDriver();
-    }
 }
