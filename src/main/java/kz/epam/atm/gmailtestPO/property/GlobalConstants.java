@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.property;
+package kz.epam.atm.gmailtestPO.property;
 
 public class GlobalConstants {
 

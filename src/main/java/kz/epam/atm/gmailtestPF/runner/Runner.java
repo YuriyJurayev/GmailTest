@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.runner;
+package kz.epam.atm.gmailtestPF.runner;
 
 import org.testng.TestNG;
 

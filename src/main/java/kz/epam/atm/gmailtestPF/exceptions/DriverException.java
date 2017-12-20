@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.exceptions;
+package kz.epam.atm.gmailtestPF.exceptions;
 
 public class DriverException extends Exception {
 

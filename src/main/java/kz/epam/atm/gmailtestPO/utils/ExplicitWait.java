@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.utils;
+package kz.epam.atm.gmailtestPO.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

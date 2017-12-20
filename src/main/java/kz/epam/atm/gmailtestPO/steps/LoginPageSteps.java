@@ -1,7 +1,7 @@
-package kz.epam.atm.gmailtest.steps;
+package kz.epam.atm.gmailtestPO.steps;
 
-import kz.epam.atm.gmailtest.utils.DOMElementPresence;
-import kz.epam.atm.gmailtest.utils.ExplicitWait;
+import kz.epam.atm.gmailtestPO.utils.DOMElementPresence;
+import kz.epam.atm.gmailtestPO.utils.ExplicitWait;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;

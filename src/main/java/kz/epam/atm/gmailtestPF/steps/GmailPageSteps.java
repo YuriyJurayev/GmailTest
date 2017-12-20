@@ -1,11 +1,11 @@
-package kz.epam.atm.gmailtest.steps;
-
-import kz.epam.atm.gmailtest.utils.DOMElementPresence;
-import kz.epam.atm.gmailtest.utils.ExplicitWait;
+package kz.epam.atm.gmailtestPF.steps;
+/*
+import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
+import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
+import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import kz.epam.atm.gmailtest.utils.RandomDataGenerator;
 
 public class GmailPageSteps {
 
@@ -67,4 +67,4 @@ public class GmailPageSteps {
         driver.findElement(By.cssSelector("button.J-at1-atl")).click();
         Assert.assertFalse(DOMElementPresence.isElementPresent(driver,eMailLocator));
     }
-}
+}*/

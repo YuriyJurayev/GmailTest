@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.property;
+package kz.epam.atm.gmailtestPO.property;
 
 import java.io.FileInputStream;
 import java.io.IOException;

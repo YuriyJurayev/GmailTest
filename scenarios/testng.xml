@@ -3,7 +3,7 @@
 <suite name="Suite">
    <test name="SmokeTest">
         <classes>
-            <class name="kz.epam.atm.gmailtest.tests.GmailTest"/>
+            <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
         </classes>
     </test>
 </suite>

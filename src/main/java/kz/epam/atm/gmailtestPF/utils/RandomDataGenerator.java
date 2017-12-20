@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtest.utils;
+package kz.epam.atm.gmailtestPF.utils;
 
 public class RandomDataGenerator {
 

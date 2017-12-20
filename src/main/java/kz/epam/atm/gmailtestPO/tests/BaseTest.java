@@ -1,8 +1,8 @@
-package kz.epam.atm.gmailtest.tests;
+package kz.epam.atm.gmailtestPO.tests;
 
-import kz.epam.atm.gmailtest.FactoryDriver.FactoryDriver;
-import kz.epam.atm.gmailtest.property.GlobalConstants;
-import kz.epam.atm.gmailtest.property.PropertyProvider;
+import kz.epam.atm.gmailtestPO.FactoryDriver.FactoryDriver;
+import kz.epam.atm.gmailtestPO.property.GlobalConstants;
+import kz.epam.atm.gmailtestPO.property.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
