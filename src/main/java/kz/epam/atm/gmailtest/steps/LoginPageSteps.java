@@ -21,8 +21,9 @@ public class LoginPageSteps {
     public void authorization(String login, String password){
         driver.findElement(By.xpath("//input[@type='email']")).sendKeys(login);
         driver.findElement(By.xpath("//div[@id='identifierNext']/content/span")).click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.xpath("//input[@type='password']"));
-        driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);
+        By passwordField = By.xpath("//input[@type='password']");
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, passwordField );
+        driver.findElement(passwordField).sendKeys(password);
         driver.findElement(By.xpath("//div[@id='passwordNext']/content/span")).click();
         ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.cssSelector("span.gbii"));
         Assert.assertTrue(DOMElementPresence.isElementPresent(driver,By.id("gb_71")),"Login failed.");
