@@ -12,7 +12,7 @@ public class GmailPageSteps {
     private WebDriver driver;
     private final By eMailLocator = By.xpath("//div[@role='main']//table[@class='F cf zt']//tr[1]");
     private final By draftFolderLink = By.xpath("//a[@href='https://mail.google.com/mail/u/0/#drafts']");
-    private int subjectID = RandomDataGenerator.generateRandomInt();
+    private int subjectID;
 
     public GmailPageSteps(WebDriver driver){
         this.driver = driver;
@@ -29,6 +29,7 @@ public class GmailPageSteps {
         driver.findElement(bodyField).sendKeys(body);
         By subjectField = By.cssSelector("input.aoT");
         driver.findElement(subjectField).click();
+        subjectID = RandomDataGenerator.generateRandomInt();
         driver.findElement(subjectField).sendKeys(subject + "(" + subjectID + ")");
         driver.findElement(By.cssSelector("img.Ha")).click();
     }
@@ -47,9 +48,9 @@ public class GmailPageSteps {
         navigateToMailBoxFolder(draftFolderLink);
         ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.xpath("//div[@role='main']//div[@class='yW']/font"));
         Assert.assertTrue(DOMElementPresence.isElementPresent(driver,eMailLocator),"Draft mail not found.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.LW-avf")), body,"Mail body is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator, By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator, By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
+        Assert.assertEquals(getEmailAttributeText(eMailLocator, By.cssSelector("div.LW-avf")), body,"Mail body is not equal.");
     }
     public void verifyDraftMailAbsence(){
         navigateToMailBoxFolder(draftFolderLink);
