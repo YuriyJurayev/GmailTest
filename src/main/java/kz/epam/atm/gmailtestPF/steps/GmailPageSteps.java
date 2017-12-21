@@ -1,70 +1,80 @@
 package kz.epam.atm.gmailtestPF.steps;
-/*
+
+import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-public class GmailPageSteps {
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
-    private WebDriver driver;
-    private final By eMailLocator = By.xpath("//div[@role='main']//table[@class='F cf zt']//tr[1]");
-    private final By draftFolderLink = By.xpath("//a[@href='https://mail.google.com/mail/u/0/#drafts']");
-    private int subjectID;
+public class GmailPageSteps extends AbstractSteps{
+
+    private static final String DRAFT_MAIL_ABSENCE_ERR_MSG = "Draft mail not found.";
+    private static final String INCORRECT_RECIPIENT_ERR_MSG = "Recipient is not equal.";
+    private static final String INCORRECT_SUBJECT_ERR_MSG = "Subject is not equal.";
+    private static final String INCORRECT_BODY_ERR_MSG = "Mail body is not equal.";
+    private static final String DRAFT_MAIL_PRESENCE_ERR_MSG = "Found draft mail in the draft folder.";
+    private static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
+    private String subjectBuilder;
+    private GmailPage gmailPage;
+    private WebElement firstEmailLocator;
 
     public GmailPageSteps(WebDriver driver){
-        this.driver = driver;
+        super(driver);
+        gmailPage = new GmailPage(driver);
+        firstEmailLocator = gmailPage.getFirstEmailInList();
     }
 
-    public void composeEMail(String recipients,String subject,String body) {
-        driver.findElement(By.cssSelector("div.z0>div")).click();
-        By emailField = By.cssSelector("textarea.vO");
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, emailField);
-        driver.findElement(emailField).click();
-        driver.findElement(emailField).sendKeys(recipients);
-        By bodyField = By.cssSelector("div.LW-avf");
-        driver.findElement(bodyField).click();
-        driver.findElement(bodyField).sendKeys(body);
-        By subjectField = By.cssSelector("input.aoT");
-        driver.findElement(subjectField).click();
-        subjectID = RandomDataGenerator.generateRandomInt();
-        driver.findElement(subjectField).sendKeys(subject + "(" + subjectID + ")");
-        driver.findElement(By.cssSelector("img.Ha")).click();
-    }
-    private void navigateToMailBoxFolder(By by){
-        driver.findElement(by).click();
+
+    public GmailPageSteps composeEmail(String recipients, String subject, String body) {
+        gmailPage.clickComposeEmail();
+        gmailPage.fillEmailRecipientsField(recipients);
+        gmailPage.fillEmailBodyField(body);
+        gmailPage.fillEmailSubjectField(subject);
+        gmailPage.clickEmailWindowCloseButton();
+        return this;
     }
 
-    private String getEmailAttributeText(By mailLocator,By attributeLocator){  
-        driver.findElement(mailLocator).click();
-        return driver.findElement(attributeLocator).getText();
+
+    private String getEmailAttributeText(WebElement email,WebElement attribute){
+        email.click();
+        return attribute.getText();
     }
-    public void sendMail(){
-        driver.findElement(By.cssSelector("div.T-I.J-J5-Ji.aoO.T-I-atl.L3")).click();
+    public GmailPageSteps sendEmail(){
+        gmailPage.clickSendEmail();
+        return this;
     }
-    public void verifyDraftMailExistence(String recipients,String subject,String body){
-        navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.xpath("//div[@role='main']//div[@class='yW']/font"));
-        Assert.assertTrue(DOMElementPresence.isElementPresent(driver,eMailLocator),"Draft mail not found.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.az9>span")), recipients,"Recipient is not equal.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.aYF")), subject + "(" + subjectID + ")","Subject is not equal.");
-        Assert.assertEquals(getEmailAttributeText(eMailLocator,By.cssSelector("div.LW-avf")), body,"Mail body is not equal.");
-    }
-    public void verifyDraftMailAbsence(){
-        navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitVisibilityOfElement(driver,5,By.cssSelector("table.cf.TB td.TC"));
-        Assert.assertFalse(DOMElementPresence.isElementPresent(driver,eMailLocator),"Found draft mail in the draft folder.");
-    }
-    public void verifySentMailExistence(){
-        navigateToMailBoxFolder(By.xpath("//a[@href='https://mail.google.com/mail/u/0/#sent']"));
-        Assert.assertTrue(DOMElementPresence.isElementPresent(driver,eMailLocator),"Sent folder is empty.");
-    }
+
     public void deleteEmail(){
-        driver.findElement(By.cssSelector("div[gh^='tm'] div[role^='presentation']")).click();
-        driver.findElement(By.cssSelector("div[gh^='tm'] div.nX")).click();
-        driver.findElement(By.cssSelector("button.J-at1-atl")).click();
-        Assert.assertFalse(DOMElementPresence.isElementPresent(driver,eMailLocator));
+        gmailPage.clickSelectAllEmailsCheckbox();
+        gmailPage.clickDeleteEmailButtonAndConfirm();
+        Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailLocator));
     }
-}*/
+
+
+    public GmailPageSteps verifyDraftMailExistence(String recipients,String body){
+        gmailPage.navigateToDraftFolder();
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, gmailPage.getDrafMailLabel());
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_MAIL_ABSENCE_ERR_MSG); //checked
+        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailRecipientsOutputTextElement()), recipients,INCORRECT_RECIPIENT_ERR_MSG); ///check locators
+        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailSubjectOutputTextElementt()), subjectBuilder,INCORRECT_SUBJECT_ERR_MSG);
+        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailBodyField()), body,INCORRECT_BODY_ERR_MSG);
+        return this;
+    }
+    public GmailPageSteps verifyDraftMailAbsence(){
+        gmailPage.navigateToDraftFolder();
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, gmailPage.getMailSentPopupMessage()); ///check assertion  ///css = "div.vh>span.a8k"
+        Assert.assertFalse(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_MAIL_PRESENCE_ERR_MSG);  ///checked
+        return this;
+    }
+    public GmailPageSteps verifySentMailExistence(){
+        gmailPage.navigateToSentFolder();
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),EMPTY_SENT_FOLDER_ERR_MSG); ///checked
+        return this;
+    }
+
+}

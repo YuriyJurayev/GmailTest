@@ -1,5 +1,6 @@
 package kz.epam.atm.gmailtestPF.pages;
 
+import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 
@@ -8,8 +9,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
+
 
 public class LoginPage extends AbstractPage{
+
+    private static final String LOGIN_FAIL_ERR_MSG = "Login failed.";
 
     @FindBy(xpath = "//input[@type='email']")
     private WebElement emailField;
@@ -24,7 +29,7 @@ public class LoginPage extends AbstractPage{
     private WebElement nextButtonPasswordTab;
 
     @FindBy(css = "span.gbii")
-    private WebElement googleAccountIcon;
+    private WebElement googleAccountIcon; /// no usage
 
     @FindBy(id = "gb_71")
     private WebElement logoutBotton;
@@ -33,24 +38,25 @@ public class LoginPage extends AbstractPage{
         super(driver);
     }
 
-    public void openLoginPage(String url){
+    public LoginPage openLoginPage(String url){
         driver.get(url);
+        return this;
     }
 
-    public void authorization(String login, String password){
+    public GmailPageSteps authorization(String login, String password){
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
         emailField.sendKeys(login);
         nextButtonEmailTab.click();
-
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, passwordField );
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
         passwordField.sendKeys(password);
         nextButtonPasswordTab.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, googleAccountIcon);
-        Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),"Login failed.");
+        Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
+        return new GmailPageSteps(driver);
     }
 
     public void logout() {
         googleAccountIcon.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, logoutBotton);
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, logoutBotton);
         logoutBotton.click();
     }
 }

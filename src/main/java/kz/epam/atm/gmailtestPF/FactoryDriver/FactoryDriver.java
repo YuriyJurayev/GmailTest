@@ -11,22 +11,26 @@ public class FactoryDriver {
 
     private static final String FIREFOX_DRIVER = "firefox_driver";
     private static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
+    private static final String CHROME = "chrome";
     private static final String CHROME_DRIVER = "chrome_driver";
     private static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
+    private static final int PAGE_LOAD_TIMEOUT = 15;
+    private static final int IMPLICIT_WAIT_TIMEOUT = 10;
+
 
     public static WebDriver getCurrentDriver(){
         String browser = PropertyProvider.getProperty("browser");
         WebDriver driver;
         switch (browser){
-            case "chrome":
+            case CHROME:
                 driver = createChromeDriver();
                 break;
             default:
                 driver = createFirefoxDriver();
                 break;
         }
-        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
     }

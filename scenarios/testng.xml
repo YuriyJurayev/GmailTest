@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-   <test name="SmokeTest">
+   <test name="SmokeTest1">
+        <classes>
+            <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
+        </classes>
+    </test>
+    <test name="SmokeTest2">
+        <classes>
+            <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
+        </classes>
+    </test>
+    <test name="SmokeTest3">
+        <classes>
+            <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
+        </classes>
+    </test>
+    <test name="SmokeTest4">
+        <classes>
+            <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
+        </classes>
+    </test>
+    <test name="SmokeTest5">
         <classes>
             <class name="kz.epam.atm.gmailtestPO.tests.GmailTest"/>
         </classes>

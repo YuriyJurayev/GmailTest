@@ -1,37 +1,61 @@
 package kz.epam.atm.gmailtestPF.steps;
-/*
+
+import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-public class LoginPageSteps {
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
-    private WebDriver driver;
+
+public class LoginPageSteps extends AbstractSteps{
+
+    private static final String LOGIN_FAIL_ERR_MSG = "Login failed.";
+
+    @FindBy(xpath = "//input[@type='email']")
+    private WebElement emailField;
+
+    @FindBy(xpath = "//div[@id='identifierNext']/content/span")
+    private WebElement nextButtonEmailTab;
+
+    @FindBy(xpath = "//input[@type='password']")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//div[@id='passwordNext']/content/span")
+    private WebElement nextButtonPasswordTab;
+
+    @FindBy(css = "span.gbii")
+    private WebElement googleAccountIcon; /// no usage
+
+    @FindBy(id = "gb_71")
+    private WebElement logoutBotton;
 
     public LoginPageSteps(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
-    public void openLoginPage(String url){
+    public LoginPageSteps openLoginPage(String url){
         driver.get(url);
+        return this;
     }
 
-    public void authorization(String login, String password){
-        driver.findElement(By.xpath("//input[@type='email']")).sendKeys(login);
-        driver.findElement(By.xpath("//div[@id='identifierNext']/content/span")).click();
-        By passwordField = By.xpath("//input[@type='password']");
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, passwordField );
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(By.xpath("//div[@id='passwordNext']/content/span")).click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.cssSelector("span.gbii"));
-        Assert.assertTrue(DOMElementPresence.isElementPresent(driver,By.id("gb_71")),"Login failed.");
+    public GmailPage authorization(String login, String password){
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
+        emailField.sendKeys(login);
+        nextButtonEmailTab.click();
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
+        passwordField.sendKeys(password);
+        nextButtonPasswordTab.click();
+        Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
+        return new GmailPage(driver);
     }
 
     public void logout() {
-        driver.findElement(By.cssSelector("span.gbii")).click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, By.id("gb_71"));
-        driver.findElement(By.id("gb_71")).click();
+        googleAccountIcon.click();
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, logoutBotton);
+        logoutBotton.click();
     }
-}*/
+}

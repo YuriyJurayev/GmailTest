@@ -8,7 +8,17 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
+
 public class GmailPage extends AbstractPage{
+
+    private static final String DRAFT_MAIL_ABSENCE_ERR_MSG = "Draft mail not found.";
+    private static final String INCORRECT_RECIPIENT_ERR_MSG = "Recipient is not equal.";
+    private static final String INCORRECT_SUBJECT_ERR_MSG = "Subject is not equal.";
+    private static final String INCORRECT_BODY_ERR_MSG = "Mail body is not equal.";
+    private static final String DRAFT_MAIL_PRESENCE_ERR_MSG = "Found draft mail in the draft folder.";
+    private static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
+    private String subjectBuilder;
 
     @FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr[1]")
     private WebElement firstEmailInList;
@@ -20,7 +30,7 @@ public class GmailPage extends AbstractPage{
     private WebElement composeEmailButton;
 
     @FindBy(css = "textarea.vO")
-    private WebElement emailRecipientsField; ///By.cssSelector("div.az9>span")
+    private WebElement emailRecipientsField;
 
     @FindBy(css = "div.az9>span")
     private WebElement emailRecipientsOutputTextElement;
@@ -29,7 +39,7 @@ public class GmailPage extends AbstractPage{
     private WebElement emailBodyField;
 
     @FindBy(css = "input.aoT")
-    private WebElement emailSubjectField;  ///By.cssSelector("div.aYF")
+    private WebElement emailSubjectField;
 
     @FindBy(css = "div.aYF")
     private WebElement emailSubjectOutputTextElement;
@@ -44,7 +54,7 @@ public class GmailPage extends AbstractPage{
     private WebElement drafMailLabel;
 
     @FindBy(css = "table.cf.TB td.TC")
-    private WebElement emptyEmailListSign;
+    private WebElement emptyEmailListSign; /// no usage
 
     @FindBy(xpath = "//a[@href='https://mail.google.com/mail/u/0/#sent']")
     private WebElement sentFolderLink;
@@ -58,58 +68,76 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "button.J-at1-atl")
     private WebElement deletionApplyButton;
 
-    private int subjectID;
+    @FindBy(css = "div.vh>span.a8k")
+    private WebElement mailSentPopupMessage;
+
 
     public GmailPage(WebDriver driver){
         super(driver);
     }
 
-    public void composeEmail(String recipients,String subject,String body) {
+    public void clickComposeEmail(){
         composeEmailButton.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, emailRecipientsField);
+    }
+    public void fillEmailRecipientsField(String recipients){
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
         emailRecipientsField.click();
         emailRecipientsField.sendKeys(recipients);
+    }
+
+    public void fillEmailBodyField(String body){
         emailBodyField.click();
         emailBodyField.sendKeys(body);
+    }
+
+    public void fillEmailSubjectField(String subject){
         emailSubjectField.click();
-        subjectID = RandomDataGenerator.generateRandomInt();
-        emailSubjectField.sendKeys(subject + "(" + subjectID + ")");
+        subjectBuilder = subject + "(" + RandomDataGenerator.generateRandomInt() + ")" ;
+        emailSubjectField.sendKeys(subjectBuilder);
+    }
+
+    public void clickEmailWindowCloseButton() {
         emailWindowCloseButton.click();
     }
-    private void navigateToMailBoxFolder(WebElement webElement){
-        webElement.click();
+
+    public void navigateToDraftFolder(){
+        draftFolderLink.click();
+    }
+    public void navigateToSentFolder(){
+        sentFolderLink.click();
     }
 
-    private String getEmailAttributeText(WebElement email,WebElement attribute){
-        email.click();
-        return attribute.getText();
+
+    public WebElement getFirstEmailInList(){
+        return this.firstEmailInList;
     }
-    public void sendMail(){
+
+    public void clickSendEmail(){
         emailSendButton.click();
     }
+    public WebElement getEmailRecipientsOutputTextElement(){
+        return this.emailRecipientsOutputTextElement;
+    }
+    public WebElement getEmailSubjectOutputTextElementt(){
+        return this.emailSubjectOutputTextElement;
+    }
+    public WebElement getEmailBodyField(){
+        return this.emailBodyField;
+    }
+    public WebElement getDrafMailLabel(){
+        return this.drafMailLabel;
+    }
+    public WebElement getMailSentPopupMessage(){
+        return this.mailSentPopupMessage;
+    }
 
-
-    public void verifyDraftMailExistence(String recipients,String subject,String body){
-        navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, 10, drafMailLabel);
-        Assert.assertTrue(DOMElementPresence.isElementPresent(firstEmailInList),"Draft mail not found."); //checked
-        Assert.assertEquals(getEmailAttributeText(firstEmailInList,emailRecipientsOutputTextElement), recipients,"Recipient is not equal."); ///check locators
-        Assert.assertEquals(getEmailAttributeText(firstEmailInList,emailSubjectOutputTextElement), subject + "(" + subjectID + ")","Subject is not equal.");
-        Assert.assertEquals(getEmailAttributeText(firstEmailInList,emailBodyField), body,"Mail body is not equal.");
-    }
-    public void verifyDraftMailAbsence(){
-        navigateToMailBoxFolder(draftFolderLink);
-        ExplicitWait.explicitWaitVisibilityOfElement(driver,5,firstEmailInList); ///check assertion  ///css = "div.vh>span.a8k"
-        Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailInList),"Found draft mail in the draft folder.");  ///checked
-    }
-    public void verifySentMailExistence(){
-        navigateToMailBoxFolder(sentFolderLink);
-        Assert.assertTrue(DOMElementPresence.isElementPresent(firstEmailInList),"Sent folder is empty."); ///checked
-    }
-    public void deleteEmail(){
+    public void clickSelectAllEmailsCheckbox(){
         selectAllEmailsCheckbox.click();
+    }
+    public void clickDeleteEmailButtonAndConfirm(){
         deleteEmailButton.click();
         deletionApplyButton.click();
-        Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailInList));
     }
+
+
 }
