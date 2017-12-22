@@ -3,10 +3,17 @@ package kz.epam.atm.gmailtestPF.pages;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.testng.Assert;
+
+import javax.swing.*;
+
+import java.util.List;
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
@@ -18,7 +25,6 @@ public class GmailPage extends AbstractPage{
     private static final String INCORRECT_BODY_ERR_MSG = "Mail body is not equal.";
     private static final String DRAFT_MAIL_PRESENCE_ERR_MSG = "Found draft mail in the draft folder.";
     private static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
-    private String subjectBuilder;
 
     @FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr[1]")
     private WebElement firstEmailInList;
@@ -71,18 +77,30 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div.vh>span.a8k")
     private WebElement mailSentPopupMessage;
 
+    @FindBy(css = "div.J-N-JX.aDE.aDF")
+    private WebElement contextDeleteEmailButton;
 
-    public GmailPage(WebDriver driver){
-        super(driver);
+    public List<WebElement> getAllEmailsInFolder() {
+        return this.AllEmailsInFolder;
+    }
+
+    @FindBys(@FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr"))
+    private List<WebElement> AllEmailsInFolder;
+
+
+    public GmailPage(){
+        super();
     }
 
     public void clickComposeEmail(){
         composeEmailButton.click();
     }
+
     public void fillEmailRecipientsField(String recipients){
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
         emailRecipientsField.click();
         emailRecipientsField.sendKeys(recipients);
+        new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
     }
 
     public void fillEmailBodyField(String body){
@@ -92,8 +110,7 @@ public class GmailPage extends AbstractPage{
 
     public void fillEmailSubjectField(String subject){
         emailSubjectField.click();
-        subjectBuilder = subject + "(" + RandomDataGenerator.generateRandomInt() + ")" ;
-        emailSubjectField.sendKeys(subjectBuilder);
+        emailSubjectField.sendKeys(subject);
     }
 
     public void clickEmailWindowCloseButton() {
@@ -101,6 +118,7 @@ public class GmailPage extends AbstractPage{
     }
 
     public void navigateToDraftFolder(){
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
         draftFolderLink.click();
     }
     public void navigateToSentFolder(){
@@ -134,8 +152,15 @@ public class GmailPage extends AbstractPage{
     public void clickSelectAllEmailsCheckbox(){
         selectAllEmailsCheckbox.click();
     }
-    public void clickDeleteEmailButtonAndConfirm(){
+
+    public void clickDeleteEmailButton(){
         deleteEmailButton.click();
+    }
+    public void clickDeleteFirstEmailButtonViaContextMenu(){
+        new Actions(driver).contextClick(firstEmailInList).
+                click(contextDeleteEmailButton).build().perform();
+    }
+    public void clickDeletionApplyButton(){
         deletionApplyButton.click();
     }
 

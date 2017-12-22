@@ -9,7 +9,7 @@ public class GmailTest extends BaseTest {
 
     @Test
     public void gmailTest(){
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage();
         String recipietns = PropertyProvider.getProperty("email_recipients");
         String subject = PropertyProvider.getProperty("email_subject");
         String body = PropertyProvider.getProperty("email_body");
@@ -20,10 +20,8 @@ public class GmailTest extends BaseTest {
                 .sendEmail()
                 .verifyDraftMailAbsence()
                 .verifySentMailExistence()
-                .deleteEmail();
+                .deleteFirstEmailFromFolder();
         loginPage.logout();
     }
-
-
 
 }

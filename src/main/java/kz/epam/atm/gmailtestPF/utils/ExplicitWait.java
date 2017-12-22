@@ -12,8 +12,8 @@ public class ExplicitWait {
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
-    public static void explicitWaitUntilElementDisappears(WebDriver driver,int time, WebElement webElement) {
+    public static void explicitWaitUntilElementToBeClickable(WebDriver driver,int time, WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(driver, time);
-        wait.until(ExpectedConditions.invisibilityOf(webElement));
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
     }
 }

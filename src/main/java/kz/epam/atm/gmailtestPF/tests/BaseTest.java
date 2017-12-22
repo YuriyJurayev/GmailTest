@@ -1,13 +1,13 @@
 package kz.epam.atm.gmailtestPF.tests;
 
-import kz.epam.atm.gmailtestPF.FactoryDriver.FactoryDriver;
+import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import kz.epam.atm.gmailtestPF.property.GlobalConstants;
 import kz.epam.atm.gmailtestPF.property.PropertyProvider;
+import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
+@Listeners(ScreenshotExecutor.class)
 public class BaseTest {
 
     protected WebDriver driver;
@@ -17,13 +17,13 @@ public class BaseTest {
         PropertyProvider.readProperties(GlobalConstants.CONFIG_PROPERTIES_PATH);
     }
 
-    @BeforeMethod
+    @BeforeClass
     public void setUp(){
-        driver = FactoryDriver.getCurrentDriver();
+        driver = FactoryDriver.getInstance();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void tearDown(){
-        driver.quit();
+        FactoryDriver.closeDriver();
     }
 }

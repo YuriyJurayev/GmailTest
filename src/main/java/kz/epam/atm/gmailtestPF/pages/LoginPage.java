@@ -34,8 +34,8 @@ public class LoginPage extends AbstractPage{
     @FindBy(id = "gb_71")
     private WebElement logoutBotton;
 
-    public LoginPage(WebDriver driver){
-        super(driver);
+    public LoginPage(){
+        super();
     }
 
     public LoginPage openLoginPage(String url){
@@ -51,10 +51,11 @@ public class LoginPage extends AbstractPage{
         passwordField.sendKeys(password);
         nextButtonPasswordTab.click();
         Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
-        return new GmailPageSteps(driver);
+        return new GmailPageSteps();
     }
 
     public void logout() {
+        ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
         googleAccountIcon.click();
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, logoutBotton);
         logoutBotton.click();

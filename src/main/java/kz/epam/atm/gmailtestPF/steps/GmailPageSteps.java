@@ -4,6 +4,7 @@ import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
+import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,9 +24,9 @@ public class GmailPageSteps extends AbstractSteps{
     private GmailPage gmailPage;
     private WebElement firstEmailLocator;
 
-    public GmailPageSteps(WebDriver driver){
-        super(driver);
-        gmailPage = new GmailPage(driver);
+    public GmailPageSteps(){
+        super();
+        gmailPage = new GmailPage();
         firstEmailLocator = gmailPage.getFirstEmailInList();
     }
 
@@ -33,8 +34,9 @@ public class GmailPageSteps extends AbstractSteps{
     public GmailPageSteps composeEmail(String recipients, String subject, String body) {
         gmailPage.clickComposeEmail();
         gmailPage.fillEmailRecipientsField(recipients);
+        subjectBuilder = subject + "(" + RandomDataGenerator.generateRandomInt() + ")" ;
+        gmailPage.fillEmailSubjectField(subjectBuilder);
         gmailPage.fillEmailBodyField(body);
-        gmailPage.fillEmailSubjectField(subject);
         gmailPage.clickEmailWindowCloseButton();
         return this;
     }
@@ -49,12 +51,22 @@ public class GmailPageSteps extends AbstractSteps{
         return this;
     }
 
-    public void deleteEmail(){
+    public void deleteAllEmailsFromFolder(){
         gmailPage.clickSelectAllEmailsCheckbox();
-        gmailPage.clickDeleteEmailButtonAndConfirm();
+        gmailPage.clickDeleteEmailButton();
+        gmailPage.clickDeletionApplyButton();
         Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailLocator));
     }
-
+    public void deleteFirstEmailFromFolder(){
+        int numberOfEmailsBeforeDeletion = gmailPage.getAllEmailsInFolder().size();
+        highlightElement(firstEmailLocator);
+        ScreenshotExecutor.takeScreenshot();
+        gmailPage.clickDeleteFirstEmailButtonViaContextMenu();
+        gmailPage.clickDeletionApplyButton();
+        ScreenshotExecutor.takeScreenshot();
+        int numberOfEmailsAfterDeletion = gmailPage.getAllEmailsInFolder().size();
+        Assert.assertEquals(numberOfEmailsBeforeDeletion,numberOfEmailsAfterDeletion + 1,"Email deletion failed.");
+    }
 
     public GmailPageSteps verifyDraftMailExistence(String recipients,String body){
         gmailPage.navigateToDraftFolder();

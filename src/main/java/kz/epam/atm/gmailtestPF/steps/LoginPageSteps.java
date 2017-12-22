@@ -33,8 +33,8 @@ public class LoginPageSteps extends AbstractSteps{
     @FindBy(id = "gb_71")
     private WebElement logoutBotton;
 
-    public LoginPageSteps(WebDriver driver){
-        super(driver);
+    public LoginPageSteps(){
+        super();
     }
 
     public LoginPageSteps openLoginPage(String url){
@@ -50,7 +50,7 @@ public class LoginPageSteps extends AbstractSteps{
         passwordField.sendKeys(password);
         nextButtonPasswordTab.click();
         Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
-        return new GmailPage(driver);
+        return new GmailPage();
     }
 
     public void logout() {

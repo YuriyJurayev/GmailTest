@@ -1,4 +1,4 @@
-package kz.epam.atm.gmailtestPF.FactoryDriver;
+package kz.epam.atm.gmailtestPF.driver;
 
 import kz.epam.atm.gmailtestPF.property.PropertyProvider;
 import org.openqa.selenium.WebDriver;
@@ -16,11 +16,22 @@ public class FactoryDriver {
     private static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
     private static final int PAGE_LOAD_TIMEOUT = 15;
     private static final int IMPLICIT_WAIT_TIMEOUT = 10;
+    private static WebDriver driver;
 
+    public static synchronized WebDriver getInstance() {
+        if (driver == null) {
+            getCurrentDriver();
+        }
+        return driver;
+    }
 
-    public static WebDriver getCurrentDriver(){
+    public static void closeDriver() {
+        driver.quit();
+        driver = null;
+    }
+
+    private static void getCurrentDriver(){
         String browser = PropertyProvider.getProperty("browser");
-        WebDriver driver;
         switch (browser){
             case CHROME:
                 driver = createChromeDriver();
@@ -32,7 +43,6 @@ public class FactoryDriver {
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        return driver;
     }
 
     private static WebDriver createChromeDriver(){
