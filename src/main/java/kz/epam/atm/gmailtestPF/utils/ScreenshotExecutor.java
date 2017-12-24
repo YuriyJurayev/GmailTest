@@ -19,7 +19,6 @@ public class ScreenshotExecutor extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
-
         takeScreenshot();
     }
 

@@ -4,7 +4,11 @@ import kz.epam.atm.gmailtestPF.property.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public class FactoryDriver {
@@ -18,7 +22,7 @@ public class FactoryDriver {
     private static final int IMPLICIT_WAIT_TIMEOUT = 10;
     private static WebDriver driver;
 
-    public static synchronized WebDriver getInstance() {
+    public static WebDriver getInstance() {
         if (driver == null) {
             getCurrentDriver();
         }
@@ -32,13 +36,21 @@ public class FactoryDriver {
 
     private static void getCurrentDriver(){
         String browser = PropertyProvider.getProperty("browser");
+        DesiredCapabilities capabilities;
         switch (browser){
             case CHROME:
-                driver = createChromeDriver();
+                //driver = createChromeDriver();
+                capabilities = DesiredCapabilities.chrome();
                 break;
             default:
-                driver = createFirefoxDriver();
+                //driver = createFirefoxDriver();
+                capabilities = DesiredCapabilities.firefox();
                 break;
+        }
+        try {
+            driver = new RemoteWebDriver(new URL("http://10.12.9.8:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);

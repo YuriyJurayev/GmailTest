@@ -43,10 +43,10 @@ public class LoginPageSteps extends AbstractSteps{
     }
 
     public GmailPage authorization(String login, String password){
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
         emailField.sendKeys(login);
         nextButtonEmailTab.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
         passwordField.sendKeys(password);
         nextButtonPasswordTab.click();
         Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
@@ -55,7 +55,7 @@ public class LoginPageSteps extends AbstractSteps{
 
     public void logout() {
         googleAccountIcon.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, logoutBotton);
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutBotton);
         logoutBotton.click();
     }
 }

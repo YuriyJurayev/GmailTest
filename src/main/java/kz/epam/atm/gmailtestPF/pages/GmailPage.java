@@ -97,7 +97,7 @@ public class GmailPage extends AbstractPage{
     }
 
     public void fillEmailRecipientsField(String recipients){
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
         emailRecipientsField.click();
         emailRecipientsField.sendKeys(recipients);
         new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
@@ -118,7 +118,7 @@ public class GmailPage extends AbstractPage{
     }
 
     public void navigateToDraftFolder(){
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
         draftFolderLink.click();
     }
     public void navigateToSentFolder(){

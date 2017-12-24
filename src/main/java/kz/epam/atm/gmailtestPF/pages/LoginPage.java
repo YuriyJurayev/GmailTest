@@ -4,7 +4,7 @@ import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -44,10 +44,10 @@ public class LoginPage extends AbstractPage{
     }
 
     public GmailPageSteps authorization(String login, String password){
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
         emailField.sendKeys(login);
         nextButtonEmailTab.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
         passwordField.sendKeys(password);
         nextButtonPasswordTab.click();
         Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
@@ -55,9 +55,9 @@ public class LoginPage extends AbstractPage{
     }
 
     public void logout() {
-        ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
+        ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
         googleAccountIcon.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, logoutBotton);
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutBotton);
         logoutBotton.click();
     }
 }
