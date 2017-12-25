@@ -3,7 +3,6 @@ package kz.epam.atm.gmailtestPF.steps;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;

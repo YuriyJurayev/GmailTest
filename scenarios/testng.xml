@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-   <test name="SmokeTest1">
+<suite name="Suite" parallel="tests" thread-count="2">
+   <test name="Compose and sent email Smoke">
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
         </classes>
     </test>
-    <test name="SmokeTest2">
+    <test name="Compose and sent email via drafts Smoke">
         <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="SmokeTest3">
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="SmokeTest4">
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="SmokeTest5">
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
+            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest1"/>
         </classes>
     </test>
 </suite>

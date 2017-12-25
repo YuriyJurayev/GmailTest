@@ -5,9 +5,9 @@ import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
 import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+
 import org.testng.Assert;
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
@@ -37,11 +37,13 @@ public class GmailPageSteps extends AbstractSteps{
         subjectBuilder = subject + "(" + RandomDataGenerator.generateRandomInt() + ")" ;
         gmailPage.fillEmailSubjectField(subjectBuilder);
         gmailPage.fillEmailBodyField(body);
-        gmailPage.clickEmailWindowCloseButton();
         return this;
     }
 
-
+    public GmailPageSteps closeEmailWindow(){
+        gmailPage.clickEmailWindowCloseButton();
+        return this;
+    }
     private String getEmailAttributeText(WebElement email,WebElement attribute){
         email.click();
         return attribute.getText();

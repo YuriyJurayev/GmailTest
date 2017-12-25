@@ -2,13 +2,12 @@ package kz.epam.atm.gmailtestPF.tests;
 
 import kz.epam.atm.gmailtestPF.pages.LoginPage;
 import kz.epam.atm.gmailtestPF.property.PropertyProvider;
-
 import org.testng.annotations.Test;
 
-public class GmailTest extends BaseTest {
+public class GmailTest1 extends BaseTest {
 
     @Test
-    public void composeAndSendEmail(){
+    public void composeAndSendEmailViaDrafts(){
         LoginPage loginPage = new LoginPage();
         String recipietns = PropertyProvider.getProperty("email_recipients");
         String subject = PropertyProvider.getProperty("email_subject");
@@ -16,13 +15,14 @@ public class GmailTest extends BaseTest {
         loginPage.openLoginPage(PropertyProvider.getProperty("url"))
                 .authorization(PropertyProvider.getProperty("login"), PropertyProvider.getProperty("password"))
                 .composeEmail(recipietns,subject,body)
-                .sendEmail();
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+                .closeEmailWindow()
+                .verifyDraftMailExistence(recipietns,body)
+                .sendEmail()
+                .verifyDraftMailAbsence()
+                .verifySentMailExistence()
+                .deleteFirstEmailFromFolder();
         loginPage.logout();
     }
+
 
 }

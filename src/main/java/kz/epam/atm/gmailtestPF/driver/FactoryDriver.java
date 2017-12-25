@@ -48,7 +48,7 @@ public class FactoryDriver {
                 break;
         }
         try {
-            driver = new RemoteWebDriver(new URL("http://10.12.9.8:4444/wd/hub"), capabilities);
+            driver = new RemoteWebDriver(new URL("http://10.12.13.36:4444/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

@@ -1,30 +1,22 @@
 package kz.epam.atm.gmailtestPF.pages;
 
-import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
+
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
+
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
-import org.testng.Assert;
 
-import javax.swing.*;
+
 
 import java.util.List;
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
 public class GmailPage extends AbstractPage{
-
-    private static final String DRAFT_MAIL_ABSENCE_ERR_MSG = "Draft mail not found.";
-    private static final String INCORRECT_RECIPIENT_ERR_MSG = "Recipient is not equal.";
-    private static final String INCORRECT_SUBJECT_ERR_MSG = "Subject is not equal.";
-    private static final String INCORRECT_BODY_ERR_MSG = "Mail body is not equal.";
-    private static final String DRAFT_MAIL_PRESENCE_ERR_MSG = "Found draft mail in the draft folder.";
-    private static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
 
     @FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr[1]")
     private WebElement firstEmailInList;
