@@ -1,9 +1,10 @@
 package kz.epam.atm.gmailtestPF.steps;
 
+import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-import kz.epam.atm.gmailtestPF.utils.RandomDataGenerator;
+import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
 import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
 
 import org.openqa.selenium.WebElement;
@@ -31,12 +32,12 @@ public class GmailPageSteps extends AbstractSteps{
     }
 
 
-    public GmailPageSteps composeEmail(String recipients, String subject, String body) {
+    public GmailPageSteps composeEmail(Email email) {
         gmailPage.clickComposeEmail();
-        gmailPage.fillEmailRecipientsField(recipients);
-        subjectBuilder = subject + "(" + RandomDataGenerator.generateRandomInt() + ")" ;
+        gmailPage.fillEmailRecipientsField(email.getRecipients());
+        subjectBuilder = email.getSubject() + "(" + RandomNumberGenerator.getRandomInt() + ")" ;
         gmailPage.fillEmailSubjectField(subjectBuilder);
-        gmailPage.fillEmailBodyField(body);
+        gmailPage.fillEmailBodyField(email.getBody());
         return this;
     }
 
@@ -70,13 +71,13 @@ public class GmailPageSteps extends AbstractSteps{
         Assert.assertEquals(numberOfEmailsBeforeDeletion,numberOfEmailsAfterDeletion + 1,"Email deletion failed.");
     }
 
-    public GmailPageSteps verifyDraftMailExistence(String recipients,String body){
+    public GmailPageSteps verifyDraftMailExistence(Email email){
         gmailPage.navigateToDraftFolder();
         ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, gmailPage.getDrafMailLabel());
         Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_MAIL_ABSENCE_ERR_MSG); //checked
-        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailRecipientsOutputTextElement()), recipients,INCORRECT_RECIPIENT_ERR_MSG); ///check locators
+        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailRecipientsOutputTextElement()), email.getRecipients(),INCORRECT_RECIPIENT_ERR_MSG); ///check locators
         Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailSubjectOutputTextElementt()), subjectBuilder,INCORRECT_SUBJECT_ERR_MSG);
-        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailBodyField()), body,INCORRECT_BODY_ERR_MSG);
+        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailBodyField()), email.getBody(),INCORRECT_BODY_ERR_MSG);
         return this;
     }
     public GmailPageSteps verifyDraftMailAbsence(){

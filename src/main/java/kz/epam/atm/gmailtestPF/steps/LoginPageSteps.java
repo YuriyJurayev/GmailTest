@@ -1,5 +1,6 @@
 package kz.epam.atm.gmailtestPF.steps;
 
+import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
@@ -41,12 +42,12 @@ public class LoginPageSteps extends AbstractSteps{
         return this;
     }
 
-    public GmailPage authorization(String login, String password){
+    public GmailPage authorization(User user){
         ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
-        emailField.sendKeys(login);
+        emailField.sendKeys(user.getUsername());
         nextButtonEmailTab.click();
         ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
-        passwordField.sendKeys(password);
+        passwordField.sendKeys(user.getPassword());
         nextButtonPasswordTab.click();
         Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
         return new GmailPage();

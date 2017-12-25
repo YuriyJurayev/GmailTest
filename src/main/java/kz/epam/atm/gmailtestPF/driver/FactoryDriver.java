@@ -35,7 +35,7 @@ public class FactoryDriver {
     }
 
     private static void getCurrentDriver(){
-        String browser = PropertyProvider.getProperty("browser");
+        BrowserTypes browser = BrowserTypes.valueOf(PropertyProvider.getProperty("browser"));
         DesiredCapabilities capabilities;
         switch (browser){
             case CHROME:
