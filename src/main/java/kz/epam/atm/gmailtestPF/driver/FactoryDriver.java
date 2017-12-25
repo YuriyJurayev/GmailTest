@@ -39,19 +39,19 @@ public class FactoryDriver {
         DesiredCapabilities capabilities;
         switch (browser){
             case CHROME:
-                //driver = createChromeDriver();
-                capabilities = DesiredCapabilities.chrome();
+                driver = createChromeDriver();
+                //capabilities = DesiredCapabilities.chrome();
                 break;
             default:
-                //driver = createFirefoxDriver();
-                capabilities = DesiredCapabilities.firefox();
+                driver = createFirefoxDriver();
+                //capabilities = DesiredCapabilities.firefox();
                 break;
         }
-        try {
+        /*try {
             driver = new RemoteWebDriver(new URL("http://10.12.13.36:4444/wd/hub"), capabilities);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
+        }*/
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().window().maximize();

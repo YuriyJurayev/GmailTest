@@ -17,11 +17,6 @@ public class GmailTest extends BaseTest {
                 .authorization(PropertyProvider.getProperty("login"), PropertyProvider.getProperty("password"))
                 .composeEmail(recipietns,subject,body)
                 .sendEmail();
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         loginPage.logout();
     }
 
