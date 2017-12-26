@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite" parallel="tests" thread-count="6">
+<suite name="SuiteOnChrome" parallel="tests" thread-count="6">
    <test name="Compose and sent email Smoke">
+       <parameter name="browser" value="CHROME"/>
         <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
+            <class name="kz.epam.atm.gmailtestPF.tests.UsingJSExecutorAndActionsGmailTest"/>
         </classes>
     </test>
     <test name="Compose and sent email via drafts Smoke">
+        <parameter name="browser" value="FIREFOX"/>
         <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest1"/>
+            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
         </classes>
     </test>
 </suite>

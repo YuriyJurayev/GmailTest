@@ -109,14 +109,15 @@ public class GmailPage extends AbstractPage{
         emailWindowCloseButton.click();
     }
 
-    public void navigateToDraftFolder(){
+    public void clickDraftFolderLink(){
         ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
         draftFolderLink.click();
     }
-    public void navigateToSentFolder(){
+
+    public void clickSentFolderLink(){
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
         sentFolderLink.click();
     }
-
 
     public WebElement getFirstEmailInList(){
         return this.firstEmailInList;
@@ -128,7 +129,7 @@ public class GmailPage extends AbstractPage{
     public WebElement getEmailRecipientsOutputTextElement(){
         return this.emailRecipientsOutputTextElement;
     }
-    public WebElement getEmailSubjectOutputTextElementt(){
+    public WebElement getEmailSubjectOutputTextElement(){
         return this.emailSubjectOutputTextElement;
     }
     public WebElement getEmailBodyField(){

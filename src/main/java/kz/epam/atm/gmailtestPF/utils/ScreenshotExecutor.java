@@ -1,9 +1,11 @@
 package kz.epam.atm.gmailtestPF.utils;
 
 import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
+import kz.epam.atm.gmailtestPF.tests.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
@@ -23,7 +25,7 @@ public class ScreenshotExecutor extends TestListenerAdapter {
     }
 
     public static void takeScreenshot() {
-        File screenshot = ((TakesScreenshot) FactoryDriver.getInstance()).getScreenshotAs(OutputType.FILE);
+        File screenshot = ((TakesScreenshot) new BaseTest().getDriver()).getScreenshotAs(OutputType.FILE);
         try {
             String screenshotName = SCREENSHOTS_PATH_AND_NAME + scrCount + PNG;
             scrCount++;

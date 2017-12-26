@@ -9,7 +9,7 @@ public class PropertyProvider {
 
     private static Properties prop;
 
-    public static void readProperties(String filePath){
+    private static void readProperties(String filePath){
         InputStream input = null;
         prop = new Properties();
         try {
@@ -30,6 +30,9 @@ public class PropertyProvider {
     }
 
     public static String getProperty(String key){
+        if(prop == null){
+            readProperties(GlobalConstants.CONFIG_PROPERTIES_PATH);
+        }
         return prop.getProperty(key);
     }
 

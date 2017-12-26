@@ -15,12 +15,7 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIM
 
 public class GmailPageSteps extends AbstractSteps{
 
-    private static final String DRAFT_MAIL_ABSENCE_ERR_MSG = "Draft mail not found.";
-    private static final String INCORRECT_RECIPIENT_ERR_MSG = "Recipient is not equal.";
-    private static final String INCORRECT_SUBJECT_ERR_MSG = "Subject is not equal.";
-    private static final String INCORRECT_BODY_ERR_MSG = "Mail body is not equal.";
-    private static final String DRAFT_MAIL_PRESENCE_ERR_MSG = "Found draft mail in the draft folder.";
-    private static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
+
     private String subjectBuilder;
     private GmailPage gmailPage;
     private WebElement firstEmailLocator;
@@ -29,6 +24,10 @@ public class GmailPageSteps extends AbstractSteps{
         super();
         gmailPage = new GmailPage();
         firstEmailLocator = gmailPage.getFirstEmailInList();
+    }
+
+    public String getSubjectBuilder() {
+        return subjectBuilder;
     }
 
 
@@ -45,9 +44,17 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.clickEmailWindowCloseButton();
         return this;
     }
-    private String getEmailAttributeText(WebElement email,WebElement attribute){
-        email.click();
-        return attribute.getText();
+    public String getFirstEmailRecipientsFieldText(){
+        gmailPage.getFirstEmailInList().click();
+        return gmailPage.getEmailRecipientsOutputTextElement().getText();
+    }
+    public String getFirstEmailSubjectFieldText(){
+        gmailPage.getFirstEmailInList().click();
+        return gmailPage.getEmailSubjectOutputTextElement().getText();
+    }
+    public String getFirstEmailBodyFieldText(){
+        gmailPage.getFirstEmailInList().click();
+        return gmailPage.getEmailBodyField().getText();
     }
     public GmailPageSteps sendEmail(){
         gmailPage.clickSendEmail();
@@ -61,35 +68,23 @@ public class GmailPageSteps extends AbstractSteps{
         Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailLocator));
     }
     public void deleteFirstEmailFromFolder(){
-        int numberOfEmailsBeforeDeletion = gmailPage.getAllEmailsInFolder().size();
         highlightElement(firstEmailLocator);
         ScreenshotExecutor.takeScreenshot();
         gmailPage.clickDeleteFirstEmailButtonViaContextMenu();
         gmailPage.clickDeletionApplyButton();
         ScreenshotExecutor.takeScreenshot();
-        int numberOfEmailsAfterDeletion = gmailPage.getAllEmailsInFolder().size();
-        Assert.assertEquals(numberOfEmailsBeforeDeletion,numberOfEmailsAfterDeletion + 1,"Email deletion failed.");
     }
 
-    public GmailPageSteps verifyDraftMailExistence(Email email){
-        gmailPage.navigateToDraftFolder();
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, gmailPage.getDrafMailLabel());
-        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_MAIL_ABSENCE_ERR_MSG); //checked
-        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailRecipientsOutputTextElement()), email.getRecipients(),INCORRECT_RECIPIENT_ERR_MSG); ///check locators
-        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailSubjectOutputTextElementt()), subjectBuilder,INCORRECT_SUBJECT_ERR_MSG);
-        Assert.assertEquals(getEmailAttributeText(gmailPage.getFirstEmailInList(),gmailPage.getEmailBodyField()), email.getBody(),INCORRECT_BODY_ERR_MSG);
-        return this;
+    public int countNumberOfEmailsInFolder(){
+        return gmailPage.getAllEmailsInFolder().size();
     }
-    public GmailPageSteps verifyDraftMailAbsence(){
-        gmailPage.navigateToDraftFolder();
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, gmailPage.getMailSentPopupMessage()); ///check assertion  ///css = "div.vh>span.a8k"
-        Assert.assertFalse(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_MAIL_PRESENCE_ERR_MSG);  ///checked
-        return this;
+    public void navigateToDraftFolder(){
+        gmailPage.clickDraftFolderLink();
     }
-    public GmailPageSteps verifySentMailExistence(){
-        gmailPage.navigateToSentFolder();
-        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),EMPTY_SENT_FOLDER_ERR_MSG); ///checked
-        return this;
+    public void navigateToSentFolder(){
+        gmailPage.clickSentFolderLink();
     }
+
+
 
 }

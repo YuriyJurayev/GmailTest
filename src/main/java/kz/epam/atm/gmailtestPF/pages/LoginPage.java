@@ -33,32 +33,46 @@ public class LoginPage extends AbstractPage{
     private WebElement googleAccountIcon; /// no usage
 
     @FindBy(id = "gb_71")
-    private WebElement logoutBotton;
+    private WebElement logoutButton;
+
+    @FindBy(css = "div.bdf4dc.slptg")
+    private WebElement singInTab;
 
     public LoginPage(){
         super();
     }
 
-    public LoginPage openLoginPage(String url){
-        driver.get(url);
-        return this;
+    public WebElement getLogoutButton() {
+        return logoutButton;
     }
-
-    public GmailPageSteps authorization(User user){
+    public WebElement getSingInTab() {
+        return singInTab;
+    }
+    public void fillEmailField(String username){
         ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
-        emailField.sendKeys(user.getUsername());
+        emailField.clear();
+        emailField.sendKeys(username);
+    }
+    public void clickNextButtonEmailTab(){
         nextButtonEmailTab.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
-        passwordField.sendKeys(user.getPassword());
-        nextButtonPasswordTab.click();
-        Assert.assertTrue(DOMElementPresence.isElementPresent(logoutBotton),LOGIN_FAIL_ERR_MSG);
-        return new GmailPageSteps();
     }
 
-    public void logout() {
+    public void fillPasswordField(String password){
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
+        passwordField.clear();
+        passwordField.sendKeys(password);
+    }
+    public void clickNextButtonPasswordTab(){
+        nextButtonPasswordTab.click();
+    }
+
+    public void invokeGoogleAccountPopUpWindow(){
         ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
         googleAccountIcon.click();
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutBotton);
-        logoutBotton.click();
+    }
+
+    public void clickLogoutButton() {
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutButton);
+        logoutButton.click();
     }
 }
