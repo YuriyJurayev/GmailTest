@@ -1,6 +1,5 @@
 package kz.epam.atm.gmailtestPF.steps;
 
-import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,8 +8,8 @@ public class AbstractSteps {
 
     protected WebDriver driver;
 
-    protected AbstractSteps() {
-        this.driver = FactoryDriver.getInstance();
+    protected AbstractSteps(WebDriver driver) {
+        this.driver = driver;
     }
 
     protected void highlightElement(WebElement element) {

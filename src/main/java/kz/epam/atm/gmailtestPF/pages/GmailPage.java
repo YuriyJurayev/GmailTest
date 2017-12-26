@@ -1,20 +1,15 @@
 package kz.epam.atm.gmailtestPF.pages;
 
-
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-
 import org.openqa.selenium.Keys;
-
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
-
-
-
 import java.util.List;
 
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
 public class GmailPage extends AbstractPage{
 
@@ -80,8 +75,8 @@ public class GmailPage extends AbstractPage{
     private List<WebElement> AllEmailsInFolder;
 
 
-    public GmailPage(){
-        super();
+    public GmailPage(WebDriver driver){
+        super(driver);
     }
 
     public void clickComposeEmail(){
@@ -89,7 +84,7 @@ public class GmailPage extends AbstractPage{
     }
 
     public void fillEmailRecipientsField(String recipients){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
         emailRecipientsField.click();
         emailRecipientsField.sendKeys(recipients);
         new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
@@ -110,12 +105,12 @@ public class GmailPage extends AbstractPage{
     }
 
     public void clickDraftFolderLink(){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
         draftFolderLink.click();
     }
 
     public void clickSentFolderLink(){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
+        ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
         sentFolderLink.click();
     }
 

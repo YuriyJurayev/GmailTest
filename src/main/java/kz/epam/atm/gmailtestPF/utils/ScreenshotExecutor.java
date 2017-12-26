@@ -1,6 +1,5 @@
 package kz.epam.atm.gmailtestPF.utils;
 
-import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import kz.epam.atm.gmailtestPF.tests.BaseTest;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -8,24 +7,20 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
-
 import java.io.File;
 import java.io.IOException;
-
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
 public class ScreenshotExecutor extends TestListenerAdapter {
 
-    private static final String SCREENSHOTS_PATH_AND_NAME = "./target/screenshots/screenshot-";
-    private static final String PNG = ".png";
-    private static int scrCount = 0;
-
-    @Override
+   /* @Override
     public void onTestFailure(ITestResult testResult) {
+         Object baseTest = testResult.getInstance();
         takeScreenshot();
-    }
+    }*/
 
-    public static void takeScreenshot() {
-        File screenshot = ((TakesScreenshot) new BaseTest().getDriver()).getScreenshotAs(OutputType.FILE);
+    public static void takeScreenshot(WebDriver driver) {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
             String screenshotName = SCREENSHOTS_PATH_AND_NAME + scrCount + PNG;
             scrCount++;

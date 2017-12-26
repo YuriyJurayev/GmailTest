@@ -26,6 +26,7 @@ public class GmailTest extends BaseTest {
         email.setRecipients(PropertyProvider.getProperty("first_email_recipients"));
         email.setSubject(PropertyProvider.getProperty("first_email_subject"));
         email.setBody(PropertyProvider.getProperty("first_email_body"));
+        login();
         gmailPageSteps.composeEmail(email)
                 .closeEmailWindow();
         verifyDraftMailExistence(email);
@@ -34,7 +35,7 @@ public class GmailTest extends BaseTest {
         verifySentMailExistence();
         gmailPageSteps.deleteAllEmailsFromFolder();
         verifySentMailAbsence();
-
+        logout();
     }
 
 

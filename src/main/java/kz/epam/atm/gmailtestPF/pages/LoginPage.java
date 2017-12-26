@@ -1,14 +1,11 @@
 package kz.epam.atm.gmailtestPF.pages;
 
-import kz.epam.atm.gmailtestPF.bo.User;
-import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
-import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
@@ -38,8 +35,8 @@ public class LoginPage extends AbstractPage{
     @FindBy(css = "div.bdf4dc.slptg")
     private WebElement singInTab;
 
-    public LoginPage(){
-        super();
+    public LoginPage(WebDriver driver){
+        super(driver);
     }
 
     public WebElement getLogoutButton() {
@@ -49,7 +46,7 @@ public class LoginPage extends AbstractPage{
         return singInTab;
     }
     public void fillEmailField(String username){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
         emailField.clear();
         emailField.sendKeys(username);
     }
@@ -58,7 +55,7 @@ public class LoginPage extends AbstractPage{
     }
 
     public void fillPasswordField(String password){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
+        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
         passwordField.clear();
         passwordField.sendKeys(password);
     }
@@ -67,12 +64,12 @@ public class LoginPage extends AbstractPage{
     }
 
     public void invokeGoogleAccountPopUpWindow(){
-        ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
+        ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
         googleAccountIcon.click();
     }
 
     public void clickLogoutButton() {
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutButton);
+        ExplicitWait.explicitWaitVisibilityOfElement(driver,EXPLICIT_WAIT_TIMEOUT, logoutButton);
         logoutButton.click();
     }
 }

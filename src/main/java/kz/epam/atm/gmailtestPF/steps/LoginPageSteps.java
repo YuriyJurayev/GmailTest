@@ -2,15 +2,16 @@ package kz.epam.atm.gmailtestPF.steps;
 
 import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.pages.LoginPage;
+import org.openqa.selenium.WebDriver;
 
 
 public class LoginPageSteps extends AbstractSteps{
 
     private LoginPage loginPage;
 
-    public LoginPageSteps(){
-        super();
-        loginPage = new LoginPage();
+    public LoginPageSteps(WebDriver driver){
+        super(driver);
+        loginPage = new LoginPage(driver);
     }
 
     public LoginPageSteps openLoginPage(String url){
@@ -23,7 +24,7 @@ public class LoginPageSteps extends AbstractSteps{
         loginPage.clickNextButtonEmailTab();
         loginPage.fillPasswordField(user.getPassword());
         loginPage.clickNextButtonPasswordTab();
-        return new GmailPageSteps();
+        return new GmailPageSteps(driver);
     }
 
     public void logout() {

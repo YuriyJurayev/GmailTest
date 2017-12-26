@@ -21,9 +21,10 @@ public class UsingJSExecutorAndActionsGmailTest extends BaseTest {
     @Test
     public void composeAndSendEmailUsingJSExecutorAndActions(){
         Email email = new Email();
-        email.setRecipients(PropertyProvider.getProperty("second_email_recipients"));
-        email.setSubject(PropertyProvider.getProperty("second_email_subject"));
-        email.setBody(PropertyProvider.getProperty("second_email_body"));
+        email.setRecipients(PropertyProvider.getProperty("first_email_recipients"));
+        email.setSubject(PropertyProvider.getProperty("first_email_subject"));
+        email.setBody(PropertyProvider.getProperty("first_email_body"));
+        login();
         gmailPageSteps.composeEmail(email)
                 .closeEmailWindow();
         verifyDraftMailExistence(email);
@@ -34,7 +35,7 @@ public class UsingJSExecutorAndActionsGmailTest extends BaseTest {
         gmailPageSteps.deleteFirstEmailFromFolder();
         int numberOfEmailsAfterDeletion = gmailPageSteps.countNumberOfEmailsInFolder();
         verifyFirstEmailDeletion(numberOfEmailsBeforeDeletion, numberOfEmailsAfterDeletion);
-
+        logout();
 
     }
 
