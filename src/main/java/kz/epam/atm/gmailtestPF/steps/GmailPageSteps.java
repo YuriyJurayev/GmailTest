@@ -3,15 +3,11 @@ package kz.epam.atm.gmailtestPF.steps;
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
-import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
-import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
 
 import org.openqa.selenium.WebElement;
 
 import org.testng.Assert;
-
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
 public class GmailPageSteps extends AbstractSteps{
 
@@ -67,17 +63,7 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.clickDeletionApplyButton();
         Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailLocator));
     }
-    public void deleteFirstEmailFromFolder(){
-        highlightElement(firstEmailLocator);
-        ScreenshotExecutor.takeScreenshot();
-        gmailPage.clickDeleteFirstEmailButtonViaContextMenu();
-        gmailPage.clickDeletionApplyButton();
-        ScreenshotExecutor.takeScreenshot();
-    }
 
-    public int countNumberOfEmailsInFolder(){
-        return gmailPage.getAllEmailsInFolder().size();
-    }
     public void navigateToDraftFolder(){
         gmailPage.clickDraftFolderLink();
     }

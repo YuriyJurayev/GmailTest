@@ -1,14 +1,10 @@
 package kz.epam.atm.gmailtestPF.pages;
 
-import kz.epam.atm.gmailtestPF.bo.User;
-import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
-import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
+
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 

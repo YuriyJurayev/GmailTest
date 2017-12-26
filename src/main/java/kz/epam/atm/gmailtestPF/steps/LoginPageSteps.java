@@ -3,7 +3,6 @@ package kz.epam.atm.gmailtestPF.steps;
 import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.pages.LoginPage;
 
-
 public class LoginPageSteps extends AbstractSteps{
 
     private LoginPage loginPage;

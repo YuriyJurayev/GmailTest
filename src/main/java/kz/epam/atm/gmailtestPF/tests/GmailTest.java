@@ -1,12 +1,8 @@
 package kz.epam.atm.gmailtestPF.tests;
 
 import kz.epam.atm.gmailtestPF.bo.Email;
-
 import kz.epam.atm.gmailtestPF.property.PropertyProvider;
-
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
-
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
