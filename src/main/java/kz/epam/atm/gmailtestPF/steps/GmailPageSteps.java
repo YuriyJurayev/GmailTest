@@ -3,8 +3,8 @@ package kz.epam.atm.gmailtestPF.steps;
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
 import kz.epam.atm.gmailtestPF.utils.ScreenshotExecutor;
+import kz.epam.atm.gmailtestPF.utils.SubjectBuilder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -12,7 +12,7 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIM
 
 public class GmailPageSteps extends AbstractSteps{
 
-    private String subjectBuilder;
+    private String subjectContent;
     private GmailPage gmailPage;
     private WebElement firstEmailLocator;
 
@@ -22,16 +22,15 @@ public class GmailPageSteps extends AbstractSteps{
         firstEmailLocator = gmailPage.getFirstEmailInList();
     }
 
-    public String getSubjectBuilder() {
-        return subjectBuilder;
+    public String getSubjectContent() {
+        return subjectContent;
     }
-
 
     public GmailPageSteps composeEmail(Email email) {
         gmailPage.clickComposeEmail();
         gmailPage.fillEmailRecipientsField(email.getRecipients());
-        subjectBuilder = email.getSubject() + "(" + RandomNumberGenerator.getRandomInt() + ")" ;
-        gmailPage.fillEmailSubjectField(subjectBuilder);
+        subjectContent = SubjectBuilder.buildSubjectString(email);
+        gmailPage.fillEmailSubjectField(subjectContent);
         gmailPage.fillEmailBodyField(email.getBody());
         return this;
     }
@@ -58,7 +57,6 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.clickSendEmail();
         return this;
     }
-
     public void deleteAllEmailsFromFolder(){
         gmailPage.clickSelectAllEmailsCheckbox();
         gmailPage.clickDeleteEmailButton();
@@ -67,13 +65,10 @@ public class GmailPageSteps extends AbstractSteps{
     public void deleteFirstEmailFromFolder(){
         highlightElement(firstEmailLocator);
         ScreenshotExecutor.takeScreenshot(driver);
-        gmailPage.clickDeleteFirstEmailButtonViaContextMenu();
+        gmailPage.clickContextMenu();
+        gmailPage.clickDeleteButtonInContextMenu();
         gmailPage.clickDeletionApplyButton();
         ScreenshotExecutor.takeScreenshot(driver);
-    }
-
-    public int countNumberOfEmailsInFolder(){
-        return gmailPage.getAllEmailsInFolder().size();
     }
     public void navigateToDraftFolder(){
         gmailPage.clickDraftFolderLink();

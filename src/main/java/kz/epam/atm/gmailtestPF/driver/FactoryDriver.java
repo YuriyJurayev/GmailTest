@@ -1,6 +1,5 @@
 package kz.epam.atm.gmailtestPF.driver;
 
-import kz.epam.atm.gmailtestPF.property.PropertyProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -17,10 +16,10 @@ public class FactoryDriver {
         driver.quit();
     }
 
-    public WebDriver getCurrentDriver(){
-        BrowserTypes browser = BrowserTypes.valueOf(PropertyProvider.getProperty("browser"));
+    public WebDriver getDriverInstance(String browserName){
+        BrowserTypes browserType = BrowserTypes.valueOf(browserName);
         DesiredCapabilities capabilities;
-        switch (browser){
+        switch (browserType){
             case CHROME:
                 capabilities = DesiredCapabilities.chrome();
                 break;

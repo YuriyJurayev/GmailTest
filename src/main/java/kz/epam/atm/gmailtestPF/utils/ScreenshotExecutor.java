@@ -13,12 +13,15 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
 public class ScreenshotExecutor extends TestListenerAdapter {
 
-   /* @Override
+    @Override
     public void onTestFailure(ITestResult testResult) {
-         Object baseTest = testResult.getInstance();
-        takeScreenshot();
-    }*/
+         Object instance = testResult.getInstance();
+         if(instance instanceof BaseTest){
+             BaseTest test = ((BaseTest) testResult.getInstance());
+             takeScreenshot(test.getDriver());
+         }
 
+    }
     public static void takeScreenshot(WebDriver driver) {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {

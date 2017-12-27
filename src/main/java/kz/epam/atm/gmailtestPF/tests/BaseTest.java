@@ -26,27 +26,17 @@ public class BaseTest {
     private LoginPageSteps loginPageSteps;
     private FactoryDriver factoryDriver;
 
-    //@BeforeSuite
+
     @BeforeClass
-    public void setUp(){
+    @Parameters("browser")
+    public void setUp(String browserName){
         factoryDriver = new FactoryDriver();
-        driver = factoryDriver.getCurrentDriver();
+        driver = factoryDriver.getDriverInstance(browserName);
         gmailPage = new GmailPage(driver);
         loginPage = new LoginPage(driver);
         loginPageSteps = new LoginPageSteps(driver);
     }
 
-    protected void login(){
-        gmailPageSteps = loginPageSteps.openLoginPage(PropertyProvider.getProperty("url"))
-                .authorization(new User(PropertyProvider.getProperty("first_login"), PropertyProvider.getProperty("first_password")));
-        Assert.assertTrue(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGIN_FAIL_ERR_MSG);
-    }
-
-    protected void logout(){
-        loginPageSteps.logout();
-        Assert.assertFalse(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGOUT_FAIL_ERR_MSG);
-    }
-    //@BeforeSuite(alwaysRun = true)
     @AfterClass(alwaysRun = true)
     public void tearDown(){
         factoryDriver.closeDriver();
@@ -56,22 +46,31 @@ public class BaseTest {
         return driver;
     }
 
+    protected void login(String login, String password){
+        gmailPageSteps = loginPageSteps.openLoginPage(PropertyProvider.getProperty("url"))
+                .authorization(new User(login, password));
+        Assert.assertTrue(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGIN_FAIL_ERR_MSG);
+    }
+
+    protected void logout(){
+        loginPageSteps.logout();
+        Assert.assertFalse(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGOUT_FAIL_ERR_MSG);
+    }
     protected void verifyDraftMailExistence(Email email){
         gmailPageSteps.navigateToDraftFolder();
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, gmailPage.getDrafMailLabel());
-        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_EMAIL_ABSENCE_ERR_MSG); //checked
-        Assert.assertEquals(gmailPageSteps.getFirstEmailRecipientsFieldText(), email.getRecipients(),INCORRECT_RECIPIENT_ERR_MSG); ///check locators
-        Assert.assertEquals(gmailPageSteps.getFirstEmailSubjectFieldText(), gmailPageSteps.getSubjectBuilder(), INCORRECT_SUBJECT_ERR_MSG);
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_EMAIL_ABSENCE_ERR_MSG);
+        Assert.assertEquals(gmailPageSteps.getFirstEmailRecipientsFieldText(), email.getRecipients(),INCORRECT_RECIPIENT_ERR_MSG);
+        Assert.assertEquals(gmailPageSteps.getFirstEmailSubjectFieldText(), gmailPageSteps.getSubjectContent(), INCORRECT_SUBJECT_ERR_MSG);
         Assert.assertEquals(gmailPageSteps.getFirstEmailBodyFieldText(), email.getBody(),INCORRECT_BODY_ERR_MSG);
     }
 
     protected void verifyDraftMailAbsence(){
         gmailPageSteps.navigateToDraftFolder();
-        ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, gmailPage.getMailSentPopupMessage()); ///check assertion  ///css = "div.vh>span.a8k"
-        Assert.assertFalse(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),DRAFT_EMAIL_PRESENCE_ERR_MSG);  ///checked
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getEmptyEmailListSign()),DRAFT_EMAIL_PRESENCE_ERR_MSG);
     }
     protected void verifySentMailExistence(){
         gmailPageSteps.navigateToSentFolder();
-        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),EMPTY_SENT_FOLDER_ERR_MSG); ///checked
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),EMPTY_SENT_FOLDER_ERR_MSG);
     }
 }

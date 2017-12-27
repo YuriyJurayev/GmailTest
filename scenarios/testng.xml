@@ -1,124 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SuiteOnChrome">
-   <test name="1">
+<suite name="Suite" parallel="tests" thread-count="2">
+   <test name="Test on chrome">
        <parameter name="browser" value="CHROME"/>
+       <parameter name="login" value="first_login"/>
+       <parameter name="password" value="first_password"/>
         <classes>
+            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
             <class name="kz.epam.atm.gmailtestPF.tests.UsingJSExecutorAndActionsGmailTest"/>
         </classes>
     </test>
-    <test name="2">
-        <parameter name="browser" value="FIREFOX"/>
+    <test name="Test on firefox">
+        <parameter name="browser" value="CHROME"/>
+        <parameter name="login" value="second_login"/>
+        <parameter name="password" value="second_password"/>
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="3">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="4">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="5">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="6">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="7">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="8">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="9">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="10">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="11">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="12">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="13">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="14">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="15">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="16">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="17">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="18">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="19">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="20">
-        <parameter name="browser" value="FIREFOX"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
+            <class name="kz.epam.atm.gmailtestPF.tests.UsingJSExecutorAndActionsGmailTest"/>
         </classes>
     </test>
 </suite>

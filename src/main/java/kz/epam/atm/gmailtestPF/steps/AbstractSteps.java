@@ -15,7 +15,6 @@ public class AbstractSteps {
     protected void highlightElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='5px solid orange'", element);
     }
-
     protected void unHighlightElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].style.border='0px'", element);
     }

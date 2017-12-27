@@ -4,7 +4,6 @@ import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 
-
 public class LoginPageSteps extends AbstractSteps{
 
     private LoginPage loginPage;

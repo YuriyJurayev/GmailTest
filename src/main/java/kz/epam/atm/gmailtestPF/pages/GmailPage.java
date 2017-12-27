@@ -13,6 +13,8 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
 public class GmailPage extends AbstractPage{
 
+    private Actions actions;
+
     @FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr[1]")
     private WebElement firstEmailInList;
 
@@ -47,7 +49,7 @@ public class GmailPage extends AbstractPage{
     private WebElement drafMailLabel;
 
     @FindBy(css = "table.cf.TB td.TC")
-    private WebElement emptyEmailListSign; /// no usage
+    private WebElement emptyEmailListSign;
 
     @FindBy(xpath = "//a[@href='https://mail.google.com/mail/u/0/#sent']")
     private WebElement sentFolderLink;
@@ -67,16 +69,37 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div.J-N-JX.aDE.aDF")
     private WebElement contextDeleteEmailButton;
 
-    public List<WebElement> getAllEmailsInFolder() {
-        return this.AllEmailsInFolder;
-    }
-
     @FindBys(@FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr"))
     private List<WebElement> AllEmailsInFolder;
 
 
     public GmailPage(WebDriver driver){
         super(driver);
+    }
+
+    public WebElement getEmptyEmailListSign() {
+        return emptyEmailListSign;
+    }
+    public WebElement getFirstEmailInList(){
+        return this.firstEmailInList;
+    }
+    public WebElement getEmailRecipientsOutputTextElement(){
+        return this.emailRecipientsOutputTextElement;
+    }
+    public WebElement getEmailSubjectOutputTextElement(){
+        return this.emailSubjectOutputTextElement;
+    }
+    public WebElement getEmailBodyField(){
+        return this.emailBodyField;
+    }
+    public WebElement getDrafMailLabel(){
+        return this.drafMailLabel;
+    }
+    public WebElement getMailSentPopupMessage(){
+        return this.mailSentPopupMessage;
+    }
+    public List<WebElement> getAllEmailsInFolder() {
+        return this.AllEmailsInFolder;
     }
 
     public void clickComposeEmail(){
@@ -108,45 +131,25 @@ public class GmailPage extends AbstractPage{
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
         draftFolderLink.click();
     }
-
     public void clickSentFolderLink(){
         ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
         sentFolderLink.click();
     }
-
-    public WebElement getFirstEmailInList(){
-        return this.firstEmailInList;
-    }
-
     public void clickSendEmail(){
         emailSendButton.click();
     }
-    public WebElement getEmailRecipientsOutputTextElement(){
-        return this.emailRecipientsOutputTextElement;
-    }
-    public WebElement getEmailSubjectOutputTextElement(){
-        return this.emailSubjectOutputTextElement;
-    }
-    public WebElement getEmailBodyField(){
-        return this.emailBodyField;
-    }
-    public WebElement getDrafMailLabel(){
-        return this.drafMailLabel;
-    }
-    public WebElement getMailSentPopupMessage(){
-        return this.mailSentPopupMessage;
-    }
-
     public void clickSelectAllEmailsCheckbox(){
         selectAllEmailsCheckbox.click();
     }
-
     public void clickDeleteEmailButton(){
         deleteEmailButton.click();
     }
-    public void clickDeleteFirstEmailButtonViaContextMenu(){
-        new Actions(driver).contextClick(firstEmailInList).
-                click(contextDeleteEmailButton).build().perform();
+    public void clickContextMenu(){
+        actions = new Actions(driver);
+        actions.contextClick(firstEmailInList).build().perform();
+    }
+    public void clickDeleteButtonInContextMenu(){
+        actions.click(contextDeleteEmailButton).build().perform();
     }
     public void clickDeletionApplyButton(){
         deletionApplyButton.click();

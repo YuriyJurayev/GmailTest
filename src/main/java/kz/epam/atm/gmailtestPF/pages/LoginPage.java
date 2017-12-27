@@ -1,18 +1,12 @@
 package kz.epam.atm.gmailtestPF.pages;
 
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
-
 public class LoginPage extends AbstractPage{
-
-    private static final String LOGIN_FAIL_ERR_MSG = "Login failed.";
 
     @FindBy(xpath = "//input[@type='email']")
     private WebElement emailField;
@@ -27,7 +21,7 @@ public class LoginPage extends AbstractPage{
     private WebElement nextButtonPasswordTab;
 
     @FindBy(css = "span.gbii")
-    private WebElement googleAccountIcon; /// no usage
+    private WebElement googleAccountIcon;
 
     @FindBy(id = "gb_71")
     private WebElement logoutButton;
@@ -53,7 +47,6 @@ public class LoginPage extends AbstractPage{
     public void clickNextButtonEmailTab(){
         nextButtonEmailTab.click();
     }
-
     public void fillPasswordField(String password){
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, passwordField );
         passwordField.clear();
@@ -62,12 +55,10 @@ public class LoginPage extends AbstractPage{
     public void clickNextButtonPasswordTab(){
         nextButtonPasswordTab.click();
     }
-
     public void invokeGoogleAccountPopUpWindow(){
         ExplicitWait.explicitWaitUntilElementToBeClickable(driver, EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
         googleAccountIcon.click();
     }
-
     public void clickLogoutButton() {
         ExplicitWait.explicitWaitVisibilityOfElement(driver,EXPLICIT_WAIT_TIMEOUT, logoutButton);
         logoutButton.click();
