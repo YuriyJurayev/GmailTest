@@ -6,7 +6,6 @@ public class Email {
     private String subject;
     private String body;
 
-
     public String getRecipients() {
         return recipients;
     }

@@ -3,12 +3,8 @@
 <suite name="Suite">
    <test name="Compose and sent email Smoke">
        <parameter name="browser" value="CHROME"/>
-        <classes>
-            <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
-        </classes>
-    </test>
-    <test name="Compose and sent email via drafts Smoke">
-        <parameter name="browser" value="FIREFOX"/>
+       <parameter name="login" value="login"/>
+       <parameter name="password" value="password"/>
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
         </classes>

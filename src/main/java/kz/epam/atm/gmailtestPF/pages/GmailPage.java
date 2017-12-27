@@ -5,9 +5,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
-
-import java.util.List;
 
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
@@ -67,59 +64,14 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div.J-N-JX.aDE.aDF")
     private WebElement contextDeleteEmailButton;
 
-    public List<WebElement> getAllEmailsInFolder() {
-        return this.AllEmailsInFolder;
-    }
-
-    @FindBys(@FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr"))
-    private List<WebElement> AllEmailsInFolder;
-
-
     public GmailPage(){
         super();
     }
-
-    public void clickComposeEmail(){
-        composeEmailButton.click();
+    public WebElement getEmptyEmailListSign() {
+        return emptyEmailListSign;
     }
-
-    public void fillEmailRecipientsField(String recipients){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
-        emailRecipientsField.click();
-        emailRecipientsField.sendKeys(recipients);
-        new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
-    }
-
-    public void fillEmailBodyField(String body){
-        emailBodyField.click();
-        emailBodyField.sendKeys(body);
-    }
-
-    public void fillEmailSubjectField(String subject){
-        emailSubjectField.click();
-        emailSubjectField.sendKeys(subject);
-    }
-
-    public void clickEmailWindowCloseButton() {
-        emailWindowCloseButton.click();
-    }
-
-    public void clickDraftFolderLink(){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
-        draftFolderLink.click();
-    }
-
-    public void clickSentFolderLink(){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
-        sentFolderLink.click();
-    }
-
     public WebElement getFirstEmailInList(){
         return this.firstEmailInList;
-    }
-
-    public void clickSendEmail(){
-        emailSendButton.click();
     }
     public WebElement getEmailRecipientsOutputTextElement(){
         return this.emailRecipientsOutputTextElement;
@@ -133,20 +85,44 @@ public class GmailPage extends AbstractPage{
     public WebElement getDrafMailLabel(){
         return this.drafMailLabel;
     }
-    public WebElement getMailSentPopupMessage(){
-        return this.mailSentPopupMessage;
+
+    public void clickComposeEmail(){
+        composeEmailButton.click();
     }
 
+    public void fillEmailRecipientsField(String recipients){
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
+        emailRecipientsField.click();
+        emailRecipientsField.sendKeys(recipients);
+        new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
+    }
+    public void fillEmailBodyField(String body){
+        emailBodyField.click();
+        emailBodyField.sendKeys(body);
+    }
+    public void fillEmailSubjectField(String subject){
+        emailSubjectField.click();
+        emailSubjectField.sendKeys(subject);
+    }
+    public void clickEmailWindowCloseButton() {
+        emailWindowCloseButton.click();
+    }
+    public void clickDraftFolderLink(){
+        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
+        draftFolderLink.click();
+    }
+    public void clickSentFolderLink(){
+        ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
+        sentFolderLink.click();
+    }
+    public void clickSendEmail(){
+        emailSendButton.click();
+    }
     public void clickSelectAllEmailsCheckbox(){
         selectAllEmailsCheckbox.click();
     }
-
     public void clickDeleteEmailButton(){
         deleteEmailButton.click();
-    }
-    public void clickDeleteFirstEmailButtonViaContextMenu(){
-        new Actions(driver).contextClick(firstEmailInList).
-                click(contextDeleteEmailButton).build().perform();
     }
     public void clickDeletionApplyButton(){
         deletionApplyButton.click();

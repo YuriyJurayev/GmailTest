@@ -11,7 +11,11 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 public class FactoryDriver {
 
     private static WebDriver driver;
+    private static String browserName;
 
+    public static void setBrowserName(String browserName) {
+        FactoryDriver.browserName = browserName;
+    }
     public static WebDriver getInstance() {
         if (driver == null) {
             getCurrentDriver();
@@ -24,7 +28,7 @@ public class FactoryDriver {
     }
 
     private static void getCurrentDriver(){
-        BrowserTypes browser = BrowserTypes.valueOf(PropertyProvider.getProperty("browser"));
+        BrowserTypes browser = BrowserTypes.valueOf(browserName);
         switch (browser){
             case CHROME:
                 driver = createChromeDriver();

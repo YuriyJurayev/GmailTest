@@ -15,6 +15,6 @@ public class ExplicitWait {
 
     public static void explicitWaitUntilElementToBeClickable(int time, WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(FactoryDriver.getInstance(), time);
-        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(webElement));
     }
 }

@@ -11,12 +11,10 @@ public class LoginPageSteps extends AbstractSteps{
         super();
         loginPage = new LoginPage();
     }
-
     public LoginPageSteps openLoginPage(String url){
         driver.get(url);
         return this;
     }
-
     public GmailPageSteps authorization(User user){
         loginPage.fillEmailField(user.getUsername());
         loginPage.clickNextButtonEmailTab();
@@ -24,7 +22,6 @@ public class LoginPageSteps extends AbstractSteps{
         loginPage.clickNextButtonPasswordTab();
         return new GmailPageSteps();
     }
-
     public void logout() {
         loginPage.invokeGoogleAccountPopUpWindow();
         loginPage.clickLogoutButton();

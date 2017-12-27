@@ -3,16 +3,13 @@ package kz.epam.atm.gmailtestPF.steps;
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
-import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
-
+import kz.epam.atm.gmailtestPF.utils.SubjectBuilder;
 import org.openqa.selenium.WebElement;
-
 import org.testng.Assert;
 
 public class GmailPageSteps extends AbstractSteps{
 
-
-    private String subjectBuilder;
+    private String subjectContent;
     private GmailPage gmailPage;
     private WebElement firstEmailLocator;
 
@@ -22,20 +19,18 @@ public class GmailPageSteps extends AbstractSteps{
         firstEmailLocator = gmailPage.getFirstEmailInList();
     }
 
-    public String getSubjectBuilder() {
-        return subjectBuilder;
+    public String getSubjectContent() {
+        return subjectContent;
     }
-
 
     public GmailPageSteps composeEmail(Email email) {
         gmailPage.clickComposeEmail();
         gmailPage.fillEmailRecipientsField(email.getRecipients());
-        subjectBuilder = email.getSubject() + "(" + RandomNumberGenerator.getRandomInt() + ")" ;
-        gmailPage.fillEmailSubjectField(subjectBuilder);
+        subjectContent = SubjectBuilder.buildSubjectString(email);
+        gmailPage.fillEmailSubjectField(subjectContent);
         gmailPage.fillEmailBodyField(email.getBody());
         return this;
     }
-
     public GmailPageSteps closeEmailWindow(){
         gmailPage.clickEmailWindowCloseButton();
         return this;
@@ -56,14 +51,12 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.clickSendEmail();
         return this;
     }
-
     public void deleteAllEmailsFromFolder(){
         gmailPage.clickSelectAllEmailsCheckbox();
         gmailPage.clickDeleteEmailButton();
         gmailPage.clickDeletionApplyButton();
         Assert.assertFalse(DOMElementPresence.isElementPresent(firstEmailLocator));
     }
-
     public void navigateToDraftFolder(){
         gmailPage.clickDraftFolderLink();
     }

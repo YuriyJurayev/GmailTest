@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.CONFIG_PROPERTIES_PATH;
 
 public class PropertyProvider {
 
@@ -28,10 +29,9 @@ public class PropertyProvider {
         }
 
     }
-
     public static String getProperty(String key){
         if(prop == null){
-            readProperties(GlobalConstants.CONFIG_PROPERTIES_PATH);
+            readProperties(CONFIG_PROPERTIES_PATH);
         }
         return prop.getProperty(key);
     }
