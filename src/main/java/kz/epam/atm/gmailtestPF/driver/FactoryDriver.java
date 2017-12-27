@@ -6,15 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.concurrent.TimeUnit;
 
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
+
 public class FactoryDriver {
 
-    private static final String FIREFOX_DRIVER = "firefox_driver";
-    private static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
-    private static final String CHROME = "chrome";
-    private static final String CHROME_DRIVER = "chrome_driver";
-    private static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
-    private static final int PAGE_LOAD_TIMEOUT = 15;
-    private static final int IMPLICIT_WAIT_TIMEOUT = 10;
     private static WebDriver driver;
 
     public static WebDriver getInstance() {
@@ -23,7 +18,6 @@ public class FactoryDriver {
         }
         return driver;
     }
-
     public static void closeDriver() {
         driver.quit();
         driver = null;

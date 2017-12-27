@@ -3,6 +3,13 @@ package kz.epam.atm.gmailtestPF.property;
 public class GlobalConstants {
 
     static final String CONFIG_PROPERTIES_PATH = "src\\main\\resources\\config.properties";
+    public static final String FIREFOX_DRIVER = "firefox_driver";
+    public static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
+    public static final String CHROME = "chrome";
+    public static final String CHROME_DRIVER = "chrome_driver";
+    public static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
+    public static final int PAGE_LOAD_TIMEOUT = 15;
+    public static final int IMPLICIT_WAIT_TIMEOUT = 10;
     public static final int EXPLICIT_WAIT_TIMEOUT = 10;
     public static final String LOGIN_FAIL_ERR_MSG = "Login failed.";
     public static final String LOGOUT_FAIL_ERR_MSG = "Logout failed.";
