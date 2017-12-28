@@ -14,12 +14,12 @@ public class UsingJSExecutorAndActionsGmailTest extends BaseTest {
         Assert.assertEquals(BeforeDeletion,AfterDeletion + 1,EMAIL_DELETION_ERR_MSG);
     }
     @Test
-    @Parameters({"login","password"})
-    public void composeAndSendEmailUsingJSExecutorAndActions(String login, String password){
+    @Parameters({"login","password","email_recipients","email_subject","email_body"})
+    public void composeAndSendEmailUsingJSExecutorAndActions(String login,String password,String recipients,String emailSubject,String emailBody){
         Email email = new Email();
-        email.setRecipients(PropertyProvider.getProperty("second_email_recipients"));
-        email.setSubject(PropertyProvider.getProperty("second_email_subject"));
-        email.setBody(PropertyProvider.getProperty("second_email_body"));
+        email.setRecipients(PropertyProvider.getProperty(recipients));
+        email.setSubject(PropertyProvider.getProperty(emailSubject));
+        email.setBody(PropertyProvider.getProperty(emailBody));
         login(PropertyProvider.getProperty(login), PropertyProvider.getProperty(password));
         gmailPageSteps.composeEmail(email)
                 .closeEmailWindow();

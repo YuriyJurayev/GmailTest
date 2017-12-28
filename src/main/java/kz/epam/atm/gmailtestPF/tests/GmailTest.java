@@ -17,12 +17,12 @@ public class GmailTest extends BaseTest {
         Assert.assertFalse(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),SENT_EMAIL_PRESENCE_ERR_MSG);
     }
     @Test
-    @Parameters({"login","password"})
-    public void composeAndSendEmail(String login,String password){
+    @Parameters({"login","password","email_recipients","email_subject","email_body"})
+    public void composeAndSendEmail(String login,String password,String recipients,String emailSubject,String emailBody){
         Email email = new Email();
-        email.setRecipients(PropertyProvider.getProperty("first_email_recipients"));
-        email.setSubject(PropertyProvider.getProperty("first_email_subject"));
-        email.setBody(PropertyProvider.getProperty("first_email_body"));
+        email.setRecipients(PropertyProvider.getProperty(recipients));
+        email.setSubject(PropertyProvider.getProperty(emailSubject));
+        email.setBody(PropertyProvider.getProperty(emailBody));
         login(PropertyProvider.getProperty(login), PropertyProvider.getProperty(password));
         gmailPageSteps.composeEmail(email)
                 .closeEmailWindow();

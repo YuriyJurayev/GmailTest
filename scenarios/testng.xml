@@ -5,15 +5,21 @@
        <parameter name="browser" value="CHROME"/>
        <parameter name="login" value="first_login"/>
        <parameter name="password" value="first_password"/>
+       <parameter name="email_recipients" value="first_email_recipients"/>
+       <parameter name="email_subject" value="first_email_subject"/>
+       <parameter name="email_body" value="first_email_body"/>
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
             <class name="kz.epam.atm.gmailtestPF.tests.UsingJSExecutorAndActionsGmailTest"/>
         </classes>
     </test>
     <test name="Test on firefox">
-        <parameter name="browser" value="CHROME"/>
+        <parameter name="browser" value="FIREFOX"/>
         <parameter name="login" value="second_login"/>
         <parameter name="password" value="second_password"/>
+        <parameter name="email_recipients" value="second_email_recipients"/>
+        <parameter name="email_subject" value="second_email_subject"/>
+        <parameter name="email_body" value="second_email_body"/>
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests.GmailTest"/>
             <class name="kz.epam.atm.gmailtestPF.tests.UsingJSExecutorAndActionsGmailTest"/>
