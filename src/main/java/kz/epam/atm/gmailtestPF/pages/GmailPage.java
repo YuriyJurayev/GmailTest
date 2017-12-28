@@ -95,9 +95,6 @@ public class GmailPage extends AbstractPage{
     public WebElement getDrafMailLabel(){
         return this.drafMailLabel;
     }
-    public WebElement getMailSentPopupMessage(){
-        return this.mailSentPopupMessage;
-    }
     public List<WebElement> getAllEmailsInFolder() {
         return this.AllEmailsInFolder;
     }
