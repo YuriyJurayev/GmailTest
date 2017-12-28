@@ -14,12 +14,10 @@ public class GmailPageSteps extends AbstractSteps{
 
     private String subjectContent;
     private GmailPage gmailPage;
-    private WebElement firstEmailLocator;
 
     public GmailPageSteps(WebDriver driver){
         super(driver);
         gmailPage = new GmailPage(driver);
-        firstEmailLocator = gmailPage.getFirstEmailInList();
     }
 
     public String getSubjectContent() {
@@ -63,7 +61,7 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.clickDeletionApplyButton();
     }
     public void deleteFirstEmailFromFolder(){
-        highlightElement(firstEmailLocator);
+        highlightElement(gmailPage.getFirstEmailInList());
         ScreenshotExecutor.takeScreenshot(driver);
         gmailPage.clickContextMenu();
         gmailPage.clickDeleteButtonInContextMenu();
