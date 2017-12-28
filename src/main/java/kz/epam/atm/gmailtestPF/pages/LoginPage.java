@@ -36,9 +36,6 @@ public class LoginPage extends AbstractPage{
     public WebElement getLogoutButton() {
         return logoutButton;
     }
-    public WebElement getSingInTab() {
-        return singInTab;
-    }
     public void fillEmailField(String username){
         ExplicitWait.explicitWaitVisibilityOfElement(driver, EXPLICIT_WAIT_TIMEOUT, emailField );
         emailField.clear();
