@@ -22,6 +22,7 @@ public class GlobalConstants {
     public static final String INCORRECT_BODY_ERR_MSG = "Email body is not equal.";
     public static final String DRAFT_EMAIL_PRESENCE_ERR_MSG = "Found draft email in the draft folder.";
     public static final String EMPTY_SENT_FOLDER_ERR_MSG = "Sent folder is empty.";
-    public static final String SENT_EMAIL_PRESENCE_ERR_MSG = "Found sent email in the sent folder";
+    public static final String SENT_EMAIL_PRESENCE_ERR_MSG = "Found sent email in the sent folder.";
+    public static final String IMAGE_ABSENCE_ERR_MSG = "Image inside the mail body not found.";
 }
 

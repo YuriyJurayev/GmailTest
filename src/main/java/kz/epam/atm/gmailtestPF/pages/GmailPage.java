@@ -64,6 +64,24 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div.J-N-JX.aDE.aDF")
     private WebElement contextDeleteEmailButton;
 
+    @FindBy(css = "div.a5.aaA.aMZ")
+    private WebElement addImageIcon;
+
+    @FindBy(id = ":6")
+    private WebElement fromInternetTab;
+
+    @FindBy(css = "input.Io-uq-Qc")
+    private WebElement insertLinkField;
+
+    @FindBy(css = "div.a-b-c.d-u.d-u-F.Io-tb-hp-enabled")
+    private WebElement addImageButton;
+
+    @FindBy(css = "div.LW-avf img")
+    private WebElement imageInsideEmailBody;
+
+    @FindBy(css = "iframe.KA-JQ")
+    private WebElement downloadImageIFrame;
+
     public GmailPage(){
         super();
     }
@@ -84,6 +102,12 @@ public class GmailPage extends AbstractPage{
     }
     public WebElement getDrafMailLabel(){
         return this.drafMailLabel;
+    }
+    public WebElement getImageInsideEmailBody(){
+        return imageInsideEmailBody;
+    }
+    public WebElement getDownloadImageIFrame(){
+        return downloadImageIFrame;
     }
 
     public void clickComposeEmail(){
@@ -128,5 +152,20 @@ public class GmailPage extends AbstractPage{
         deletionApplyButton.click();
     }
 
+    public void clickAddImageIcon(){
+        addImageIcon.click();
+    }
+
+    public void clickFromInternetTab(){
+        fromInternetTab.click();
+    }
+
+    public void fillInsertLinkField(String imageLink){
+        new Actions(driver).sendKeys(insertLinkField, imageLink).build().perform();
+    }
+    public void clickAddImageButton(){
+        //ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, addImageButton);
+        addImageButton.click();
+    }
 
 }

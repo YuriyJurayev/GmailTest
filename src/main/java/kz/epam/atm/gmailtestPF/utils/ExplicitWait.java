@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ExplicitWait {
 
+
+
     public static void explicitWaitVisibilityOfElement(int time, WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(FactoryDriver.getInstance(), time);
         wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOf(webElement));
@@ -16,5 +18,10 @@ public class ExplicitWait {
     public static void explicitWaitUntilElementToBeClickable(int time, WebElement webElement) {
         WebDriverWait wait = new WebDriverWait(FactoryDriver.getInstance(), time);
         wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
+    public static void explicitWaitFrameToBeAvailableAndSwitchToIt(int time, WebElement webElement) {
+        WebDriverWait wait = new WebDriverWait(FactoryDriver.getInstance(), time);
+        wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
     }
 }

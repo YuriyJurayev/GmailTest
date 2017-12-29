@@ -2,7 +2,10 @@ package kz.epam.atm.gmailtestPF.steps;
 
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
+import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.SubjectBuilder;
+
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
 public class GmailPageSteps extends AbstractSteps{
 
@@ -24,6 +27,15 @@ public class GmailPageSteps extends AbstractSteps{
         subjectContent = SubjectBuilder.buildSubjectString(email);
         gmailPage.fillEmailSubjectField(subjectContent);
         gmailPage.fillEmailBodyField(email.getBody());
+        return this;
+    }
+    public GmailPageSteps addImageToEmailBodyFromWeb(Email email){
+        gmailPage.clickAddImageIcon();
+        ExplicitWait.explicitWaitFrameToBeAvailableAndSwitchToIt(EXPLICIT_WAIT_TIMEOUT,gmailPage.getDownloadImageIFrame());
+        gmailPage.clickFromInternetTab();
+        gmailPage.fillInsertLinkField(email.getImage());
+        gmailPage.clickAddImageButton();
+        driver.switchTo().defaultContent();
         return this;
     }
     public GmailPageSteps closeEmailWindow(){
@@ -57,7 +69,4 @@ public class GmailPageSteps extends AbstractSteps{
     public void navigateToSentFolder(){
         gmailPage.clickSentFolderLink();
     }
-
-
-
 }
