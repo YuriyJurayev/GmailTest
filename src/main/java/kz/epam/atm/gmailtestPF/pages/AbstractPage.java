@@ -12,4 +12,5 @@ public class AbstractPage {
         this.driver = FactoryDriver.getInstance();
         PageFactory.initElements(driver, this);
     }
+
 }

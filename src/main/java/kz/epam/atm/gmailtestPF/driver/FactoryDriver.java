@@ -32,9 +32,11 @@ public class FactoryDriver {
         switch (browser){
             case CHROME:
                 driver = createChromeDriver();
+                //driver = new CustomWebDriver(driver);
                 break;
             default:
                 driver = createFirefoxDriver();
+                //driver = new CustomWebDriver(driver);
                 break;
         }
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);

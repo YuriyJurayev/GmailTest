@@ -11,4 +11,7 @@ public class AbstractSteps {
         this.driver = FactoryDriver.getInstance();
     }
 
+    protected void openPage(String url){
+        driver.get(url);
+    }
 }

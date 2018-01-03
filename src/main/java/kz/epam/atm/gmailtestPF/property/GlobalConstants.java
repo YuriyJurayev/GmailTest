@@ -1,14 +1,16 @@
 package kz.epam.atm.gmailtestPF.property;
 
-public class GlobalConstants {
+public abstract class GlobalConstants {
 
     static final String CONFIG_PROPERTIES_PATH = "src\\main\\resources\\config.properties";
+    public static String SCENARIOS_PATH = "scenarios/testng.xml";
+    public static String TEST_OUTPUT_FOLDER_PATH = "target/test-output";
     public static final String FIREFOX_DRIVER = "firefox_driver";
     public static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
     public static final String CHROME_DRIVER = "chrome_driver";
     public static final String CHROME_DRIVER_EXE = "chrome_driver_exe";
     public static final int PAGE_LOAD_TIMEOUT = 15;
-    public static final int IMPLICIT_WAIT_TIMEOUT = 10;
+    public static final int IMPLICIT_WAIT_TIMEOUT = 5;
     public static final int EXPLICIT_WAIT_TIMEOUT = 10;
     public static final int GENERATOR_BOUND = 1000;
     public static final String SCREENSHOTS_PATH_AND_NAME = "./target/screenshots/screenshot-";

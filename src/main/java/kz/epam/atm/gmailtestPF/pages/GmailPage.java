@@ -1,14 +1,21 @@
 package kz.epam.atm.gmailtestPF.pages;
 
+import kz.epam.atm.gmailtestPF.bo.Email;
+import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
+import kz.epam.atm.gmailtestPF.utils.GActions;
+import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
+
 
 public class GmailPage extends AbstractPage{
+
+    private String subjectContent;
 
     @FindBy(xpath = "//div[@role='main']//table[@class='F cf zt']//tr[1]")
     private WebElement firstEmailInList;
@@ -67,7 +74,7 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div.a5.aaA.aMZ")
     private WebElement addImageIcon;
 
-    @FindBy(id = ":6")
+    @FindBy(xpath = "//div[@id=':6']/div")
     private WebElement fromInternetTab;
 
     @FindBy(css = "input.Io-uq-Qc")
@@ -82,9 +89,13 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "iframe.KA-JQ")
     private WebElement downloadImageIFrame;
 
-    public GmailPage(){
-        super();
+    public WebElement getChangesSavingSing() {
+        return changesSavingSing;
     }
+
+    @FindBy(css = "span.oG.aOy")
+    private WebElement changesSavingSing;
+
     public WebElement getEmptyEmailListSign() {
         return emptyEmailListSign;
     }
@@ -97,8 +108,16 @@ public class GmailPage extends AbstractPage{
     public WebElement getEmailSubjectOutputTextElement(){
         return this.emailSubjectOutputTextElement;
     }
+    public String getFirstEmailSubjectText(){
+        firstEmailInList.click();
+        return this.emailSubjectOutputTextElement.getText();
+    }
     public WebElement getEmailBodyField(){
         return this.emailBodyField;
+    }
+    public String getFirstEmailBodyText(){
+        firstEmailInList.click();
+        return this.emailBodyField.getText();
     }
     public WebElement getDrafMailLabel(){
         return this.drafMailLabel;
@@ -115,10 +134,10 @@ public class GmailPage extends AbstractPage{
     }
 
     public void fillEmailRecipientsField(String recipients){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailRecipientsField);
+        ExplicitWait.explicitWaitVisibilityOfElement(emailRecipientsField);
         emailRecipientsField.click();
         emailRecipientsField.sendKeys(recipients);
-        new Actions(driver).sendKeys(emailRecipientsField, Keys.TAB).build().perform();
+        GActions.pressTabKey(emailRecipientsField);
     }
     public void fillEmailBodyField(String body){
         emailBodyField.click();
@@ -132,40 +151,70 @@ public class GmailPage extends AbstractPage{
         emailWindowCloseButton.click();
     }
     public void clickDraftFolderLink(){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, draftFolderLink);
+        ExplicitWait.explicitWaitUntilElementToBeClickable(draftFolderLink);
         draftFolderLink.click();
+        /*Actions actions = new Actions(driver);
+        actions.moveToElement(draftFolderLink).click().perform();*/
     }
     public void clickSentFolderLink(){
-        ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, sentFolderLink);
-        sentFolderLink.click();
+        //ExplicitWait.explicitWaitUntilElementToBeClickable(sentFolderLink);
+        //ExplicitWait.explicitWaitVisibilityOfElement(sentFolderLink);
+        //ExplicitWait.magicWaiter();
+        try{
+            ExplicitWait.explicitWaitUntilElementToBeClickable(sentFolderLink);
+            sentFolderLink.click();
+        }catch (WebDriverException e){
+            GActions.moveToElementAndClick(sentFolderLink);
+        }
     }
-    public void clickSendEmail(){
+    public String getFirstEmailRecipientsText(){
+        ExplicitWait.explicitWaitUntilElementToBeClickable(firstEmailInList);
+        firstEmailInList.click();
+        ExplicitWait.explicitWaitVisibilityOfElement(emailRecipientsOutputTextElement);
+        return this.emailRecipientsOutputTextElement.getText();
+    }
+
+
+    public void composeEmail(Email email) {
+        composeEmailButton.click();
+        ExplicitWait.explicitWaitVisibilityOfElement(emailRecipientsField);
+        emailRecipientsField.click();
+        emailRecipientsField.sendKeys(email.getRecipients());
+        GActions.pressTabKey(emailRecipientsField);
+        emailSubjectField.click();
+        subjectContent = buildSubjectString(email);
+        emailSubjectField.sendKeys(subjectContent);
+        emailBodyField.click();
+        emailBodyField.sendKeys(email.getBody());
+
+
+    }
+    public String getSubjectContentString() {
+        return subjectContent;
+    }
+
+    public String buildSubjectString(Email email){
+        return email.getSubject() + "(" + RandomNumberGenerator.getRandomInt() + ")" ;
+    }
+
+    public void sendEmail(){
         emailSendButton.click();
     }
-    public void clickSelectAllEmailsCheckbox(){
+
+    public void addImageToEmailBodyFromWeb(Email email){
+        addImageIcon.click();
+        ExplicitWait.explicitWaitFrameToBeAvailableAndSwitchToIt(downloadImageIFrame);
+        ExplicitWait.explicitWaitVisibilityOfElement(fromInternetTab);
+        fromInternetTab.click();
+        GActions.sendText(insertLinkField, email.getImage());
+        ExplicitWait.explicitWaitUntilElementToBeClickable(addImageButton);
+        addImageButton.click();
+        driver.switchTo().defaultContent();
+    }
+
+    public void deleteAllEmailsFromFolder(){
         selectAllEmailsCheckbox.click();
-    }
-    public void clickDeleteEmailButton(){
         deleteEmailButton.click();
-    }
-    public void clickDeletionApplyButton(){
         deletionApplyButton.click();
     }
-
-    public void clickAddImageIcon(){
-        addImageIcon.click();
-    }
-
-    public void clickFromInternetTab(){
-        fromInternetTab.click();
-    }
-
-    public void fillInsertLinkField(String imageLink){
-        new Actions(driver).sendKeys(insertLinkField, imageLink).build().perform();
-    }
-    public void clickAddImageButton(){
-        //ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, addImageButton);
-        addImageButton.click();
-    }
-
 }

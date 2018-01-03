@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
-@Listeners(ScreenshotExecutor.class)
+//@Listeners(ScreenshotExecutor.class)
 public class BaseTest {
 
     protected WebDriver driver;
@@ -23,7 +23,7 @@ public class BaseTest {
     protected LoginPage loginPage;
     private LoginPageSteps loginPageSteps;
 
-    @BeforeClass
+    @BeforeSuite
     @Parameters("browser")
     public void setUp(String browserName){
         FactoryDriver.setBrowserName(browserName);
@@ -33,20 +33,20 @@ public class BaseTest {
         loginPageSteps = new LoginPageSteps();
     }
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void tearDown(){
         FactoryDriver.closeDriver();
     }
 
-    protected void login(String login, String password){
+    protected void login(User user){
         gmailPageSteps = loginPageSteps.openLoginPage(PropertyProvider.getProperty("url"))
-                .authorization(new User(login, password));
-        Assert.assertTrue(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGIN_FAIL_ERR_MSG);
+                .authorization(user);
+        Assert.assertTrue(loginPageSteps.isLogoutButtonPresent(), LOGIN_FAIL_ERR_MSG);
     }
 
     protected void logout(){
         loginPageSteps.logout();
-        Assert.assertFalse(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGOUT_FAIL_ERR_MSG);
+        Assert.assertFalse(loginPageSteps.isLogoutButtonPresent(), LOGOUT_FAIL_ERR_MSG);
     }
 
 }

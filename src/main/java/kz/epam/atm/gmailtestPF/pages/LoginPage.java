@@ -1,5 +1,7 @@
 package kz.epam.atm.gmailtestPF.pages;
 
+import kz.epam.atm.gmailtestPF.bo.User;
+import kz.epam.atm.gmailtestPF.steps.LoginPageSteps;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,35 +30,25 @@ public class LoginPage extends AbstractPage{
     @FindBy(css = "div.bdf4dc.slptg")
     private WebElement singInTab;
 
-    public LoginPage(){
-        super();
-    }
-
     public WebElement getLogoutButton() {
         return logoutButton;
     }
-    public void fillEmailField(String username){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, emailField );
+
+
+    public void login(User user){
+        ExplicitWait.explicitWaitVisibilityOfElement(emailField);
         emailField.clear();
-        emailField.sendKeys(username);
-    }
-    public void clickNextButtonEmailTab(){
+        emailField.sendKeys(user.getUsername());
         nextButtonEmailTab.click();
-    }
-    public void fillPasswordField(String password){
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, passwordField );
+        ExplicitWait.explicitWaitVisibilityOfElement(passwordField);
         passwordField.clear();
-        passwordField.sendKeys(password);
-    }
-    public void clickNextButtonPasswordTab(){
+        passwordField.sendKeys(user.getPassword());
         nextButtonPasswordTab.click();
     }
-    public void invokeGoogleAccountPopUpWindow(){
-        ExplicitWait.explicitWaitUntilElementToBeClickable(EXPLICIT_WAIT_TIMEOUT, googleAccountIcon);
+    public void logout(){
+        ExplicitWait.explicitWaitUntilElementToBeClickable(googleAccountIcon);
         googleAccountIcon.click();
-    }
-    public void clickLogoutButton() {
-        ExplicitWait.explicitWaitVisibilityOfElement(EXPLICIT_WAIT_TIMEOUT, logoutButton);
+        ExplicitWait.explicitWaitVisibilityOfElement(logoutButton);
         logoutButton.click();
     }
 }
