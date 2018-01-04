@@ -4,7 +4,7 @@ import static kz.epam.atm.gmailtestPF.property.GlobalConstants.GENERATOR_BOUND;
 
 public class RandomNumberGenerator {
 
-    public static int generateRandomInt(int bound){
+    private static int generateRandomInt(int bound){
         return new Random().nextInt(bound);
     }
     public static int getRandomInt(){
