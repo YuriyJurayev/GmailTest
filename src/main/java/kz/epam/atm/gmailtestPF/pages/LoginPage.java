@@ -1,11 +1,9 @@
 package kz.epam.atm.gmailtestPF.pages;
 
 import kz.epam.atm.gmailtestPF.bo.User;
-import kz.epam.atm.gmailtestPF.steps.LoginPageSteps;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.EXPLICIT_WAIT_TIMEOUT;
 
 public class LoginPage extends AbstractPage{
 
@@ -33,7 +31,6 @@ public class LoginPage extends AbstractPage{
     public WebElement getLogoutButton() {
         return logoutButton;
     }
-
 
     public void login(User user){
         ExplicitWait.explicitWaitVisibilityOfElement(emailField);

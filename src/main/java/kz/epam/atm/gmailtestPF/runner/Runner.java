@@ -1,7 +1,6 @@
 package kz.epam.atm.gmailtestPF.runner;
 
 import org.testng.TestNG;
-
 import java.util.ArrayList;
 import java.util.List;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;

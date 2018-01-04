@@ -22,11 +22,4 @@ public class ExplicitWait {
     public static void explicitWaitFrameToBeAvailableAndSwitchToIt( WebElement webElement) {
         wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
     }
-    public static void magicWaiter(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -3,7 +3,6 @@ package kz.epam.atm.gmailtestPF.tests;
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.property.PropertyProvider;
-import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -28,7 +27,7 @@ public class GmailTest extends BaseTest {
                 .build();
         gmailPageSteps.composeNewEmailWithImage(email);
         gmailPageSteps.navigateToDraftFolder();
-        ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getDrafMailLabel());
+        gmailPageSteps.waitUntilDraftEmailLabelAppears();
         Assert.assertTrue(gmailPageSteps.isFirstEmailInListPresent(), DRAFT_EMAIL_ABSENCE_ERR_MSG);
     }
     @Test(dependsOnMethods = {"composeEmailTest"})

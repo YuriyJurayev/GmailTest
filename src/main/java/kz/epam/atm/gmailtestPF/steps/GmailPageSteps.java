@@ -7,10 +7,9 @@ import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 
 public class GmailPageSteps extends AbstractSteps{
 
-
     private GmailPage gmailPage;
 
-    public GmailPageSteps(){
+    GmailPageSteps(){
         gmailPage = new GmailPage();
     }
 
@@ -32,7 +31,7 @@ public class GmailPageSteps extends AbstractSteps{
         gmailPage.sendEmail();
         return this;
     }
-    public GmailPageSteps closeEmailWindow(){
+    private GmailPageSteps closeEmailWindow(){
         ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getChangesSavingSing());
         gmailPage.clickEmailWindowCloseButton();
         return this;
@@ -64,5 +63,8 @@ public class GmailPageSteps extends AbstractSteps{
     }
     public boolean isImageInEmailBodyPresent(){
         return DOMElementPresence.isElementPresent(gmailPage.getImageInsideEmailBody());
+    }
+    public void waitUntilDraftEmailLabelAppears(){
+        ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getDraftMailLabel());
     }
 }

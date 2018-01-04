@@ -26,4 +26,5 @@ public class LoginPageSteps extends AbstractSteps{
     public boolean isLogoutButtonPresent(){
         return DOMElementPresence.isElementPresent(loginPage.getLogoutButton());
     }
+
 }

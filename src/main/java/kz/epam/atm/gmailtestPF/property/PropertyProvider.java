@@ -27,7 +27,6 @@ public class PropertyProvider {
                 }
             }
         }
-
     }
     public static String getProperty(String key){
         if(prop == null){

@@ -10,8 +10,6 @@ public class DOMElementPresence {
         } catch (NoSuchElementException e) {
             return false;
         }
-
     }
-
 }
 
