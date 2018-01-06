@@ -10,7 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
-//@Listeners(ScreenshotExecutor.class)
+@Listeners(ScreenshotExecutor.class)
 public class BaseTest {
 
     protected GmailPageSteps gmailPageSteps;
