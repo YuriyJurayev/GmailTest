@@ -31,12 +31,12 @@ public class FactoryDriver {
         BrowserTypes browser = BrowserTypes.valueOf(browserName);
         switch (browser){
             case CHROME:
-                driver = createChromeDriver();
-                //driver = new CustomWebDriver(driver);
+                //driver = createChromeDriver();
+                driver = new CustomWebDriver(createChromeDriver());
                 break;
             default:
-                driver = createFirefoxDriver();
-                //driver = new CustomWebDriver(driver);
+                //driver = createFirefoxDriver();
+                driver = new CustomWebDriver(createFirefoxDriver());
                 break;
         }
         driver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
@@ -44,11 +44,11 @@ public class FactoryDriver {
         driver.manage().window().maximize();
     }
 
-    private static WebDriver createChromeDriver(){
+    private static ChromeDriver createChromeDriver(){
         System.setProperty(PropertyProvider.getProperty(CHROME_DRIVER), PropertyProvider.getProperty(CHROME_DRIVER_EXE) );
         return new ChromeDriver();
     }
-    private static WebDriver createFirefoxDriver(){
+    private static FirefoxDriver createFirefoxDriver(){
         System.setProperty(PropertyProvider.getProperty(FIREFOX_DRIVER), PropertyProvider.getProperty(FIREFOX_DRIVER_EXE) );
         return new FirefoxDriver();
     }
