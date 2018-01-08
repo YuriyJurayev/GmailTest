@@ -9,7 +9,7 @@ public class GmailPageSteps extends AbstractSteps{
 
     private GmailPage gmailPage;
 
-    GmailPageSteps(){
+    public GmailPageSteps(){
         gmailPage = new GmailPage();
     }
 

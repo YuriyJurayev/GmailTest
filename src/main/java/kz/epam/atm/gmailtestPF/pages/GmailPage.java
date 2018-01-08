@@ -127,9 +127,12 @@ public class GmailPage extends AbstractPage{
             GActions.moveToElementAndClick(sentFolderLink);
         }
     }
-    public String getFirstEmailRecipientsText(){
+    public void openFirstEmailInList(){
         ExplicitWait.explicitWaitUntilElementToBeClickable(firstEmailInList);
         firstEmailInList.click();
+    }
+    public String getFirstEmailRecipientsText(){
+        openFirstEmailInList();
         ExplicitWait.explicitWaitVisibilityOfElement(emailRecipientsOutputTextElement);
         return this.emailRecipientsOutputTextElement.getText();
     }

@@ -26,19 +26,22 @@ public class LoginSteps {
     }
 
 
-    @Given("^user opens gmail home page$")
+    @Given("^a web browser is at the Google mail home page$")
     public void open_page(){
         FactoryDriver.getInstance().get(PropertyProvider.getProperty("url"));
     }
-    @When("^user enters credentials$")
-    public void enter_credentials(){
+
+    @And("^the user is logged in$")
+    public void log_in(){
         loginPage.login(new User(PropertyProvider.getProperty("username"),PropertyProvider.getProperty("password")));
-    }
-    @Then("^gmail home page is displayed$")
-    public void verify_login_is_successful(){
         Assert.assertTrue(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGIN_FAIL_ERR_MSG);
     }
 
+
+    @Given("^the user should be logged in$")
+    public void should_be_logged_in(){
+        Assert.assertTrue(DOMElementPresence.isElementPresent(loginPage.getLogoutButton()), LOGIN_FAIL_ERR_MSG);
+    }
     @When("^user clicks logout button$")
     public void click_logout_button(){
         loginPage.logout();

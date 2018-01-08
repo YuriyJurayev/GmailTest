@@ -4,20 +4,15 @@ package kz.epam.atm.gmailtestPF.tests_cucumber;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
-import kz.epam.atm.gmailtestPF.bo.User;
 import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
-import kz.epam.atm.gmailtestPF.property.PropertyProvider;
 import kz.epam.atm.gmailtestPF.steps.GmailPageSteps;
 import kz.epam.atm.gmailtestPF.steps.LoginPageSteps;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.LOGIN_FAIL_ERR_MSG;
-import static kz.epam.atm.gmailtestPF.property.GlobalConstants.LOGOUT_FAIL_ERR_MSG;
-
-@CucumberOptions(strict = true, plugin = {"pretty"}, /*tags = {"@authorization"},*/ features = "src/main/resources/features", glue = {
+@CucumberOptions(strict = true, plugin = {"pretty"}, tags = {"@functional_test", "~@smoke_test"}, features = "src/main/resources/features", glue = {
         "kz.epam.atm.gmailtestPF.step_definitions" },snippets = SnippetType.UNDERSCORE/*monochrome = true*/)
-public class GmailCucumberTest extends AbstractTestNGCucumberTests{
+public class GmailSanityTest extends AbstractTestNGCucumberTests{
 
     protected GmailPageSteps gmailPageSteps;
     private LoginPageSteps loginPageSteps;
