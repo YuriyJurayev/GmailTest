@@ -5,6 +5,7 @@ import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.GActions;
 import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,8 +56,12 @@ public class GmailPage extends AbstractPage{
     @FindBy(css = "div[gh^='tm'] div[role^='presentation']")
     private WebElement selectAllEmailsCheckbox;
 
+    @FindBy(css = "div.ar7>div.Bn")
+    private WebElement deleteDraftEmailButton;
+
     @FindBy(css = "div[gh^='tm'] div.nX")
     private WebElement deleteEmailButton;
+
 
     @FindBy(css = "button.J-at1-atl")
     private WebElement deletionApplyButton;
@@ -86,7 +91,7 @@ public class GmailPage extends AbstractPage{
     private WebElement downloadImageIFrame;
 
     @FindBy(css = "span.oG.aOy")
-    private WebElement changesSavingSing;
+    private WebElement changesSavingSign;
 
     public WebElement getEmptyEmailListSign() {
         return emptyEmailListSign;
@@ -95,11 +100,12 @@ public class GmailPage extends AbstractPage{
         return this.firstEmailInList;
     }
     public WebElement getChangesSavingSing() {
-        return changesSavingSing;
+        return changesSavingSign;
     }
     public String getFirstEmailSubjectText(){
         firstEmailInList.click();
-        return this.emailSubjectOutputTextElement.getText();
+        ExplicitWait.explicitWaitVisibilityOfElement(emailSubjectOutputTextElement);
+        return emailSubjectOutputTextElement.getText();
     }
     public String getFirstEmailBodyText(){
         firstEmailInList.click();
@@ -113,11 +119,16 @@ public class GmailPage extends AbstractPage{
     }
 
     public void clickEmailWindowCloseButton() {
+        ExplicitWait.explicitWaitVisibilityOfElement(changesSavingSign);
         emailWindowCloseButton.click();
     }
     public void clickDraftFolderLink(){
-        ExplicitWait.explicitWaitUntilElementToBeClickable(draftFolderLink);
-        draftFolderLink.click();
+        try {
+            ExplicitWait.explicitWaitUntilElementToBeClickable(draftFolderLink);
+            draftFolderLink.click();
+        }catch (StaleElementReferenceException e){
+            GActions.moveToElementAndClick(draftFolderLink);
+        }
     }
     public void clickSentFolderLink(){
         try{
@@ -133,7 +144,6 @@ public class GmailPage extends AbstractPage{
     }
     public String getFirstEmailRecipientsText(){
         openFirstEmailInList();
-        ExplicitWait.explicitWaitVisibilityOfElement(emailRecipientsOutputTextElement);
         return this.emailRecipientsOutputTextElement.getText();
     }
 
@@ -172,7 +182,14 @@ public class GmailPage extends AbstractPage{
     }
     public void deleteAllEmailsFromFolder(){
         selectAllEmailsCheckbox.click();
+        ExplicitWait.explicitWaitUntilElementToBeClickable(deleteEmailButton);
         deleteEmailButton.click();
         deletionApplyButton.click();
+    }
+
+    public void deleteAllDraftEmailsFromFolder(){
+        selectAllEmailsCheckbox.click();
+        ExplicitWait.explicitWaitUntilElementToBeClickable(deleteDraftEmailButton);
+        deleteDraftEmailButton.click();
     }
 }
