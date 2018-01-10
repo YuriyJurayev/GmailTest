@@ -4,7 +4,7 @@ import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 
 public class AbstractSteps {
 
-    void openPage(String url){
+    protected void openPage(String url){
         FactoryDriver.getInstance().get(url);
     }
 }

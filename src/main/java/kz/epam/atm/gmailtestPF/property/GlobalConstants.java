@@ -4,7 +4,7 @@ public abstract class GlobalConstants {
 
     static final String CONFIG_PROPERTIES_PATH = "src\\main\\resources\\config.properties";
     public static String SCENARIOS_PATH = "scenarios/testng.xml";
-    public static String CUCUMBER_SCENARIOS_PATH = "scenarios/cucmbertestng.xml";
+    public static String CUCUMBER_SCENARIOS_PATH = "scenarios/cucumbertestng.xml";
     public static String TEST_OUTPUT_FOLDER_PATH = "target/test-output";
     public static final String FIREFOX_DRIVER = "firefox_driver";
     public static final String FIREFOX_DRIVER_EXE = "firefox_driver_exe";
@@ -14,6 +14,8 @@ public abstract class GlobalConstants {
     public static final int IMPLICIT_WAIT_TIMEOUT = 5;
     public static final int EXPLICIT_WAIT_TIMEOUT = 10;
     public static final int GENERATOR_BOUND = 1000;
+    public static final String DRAFT_FOLDER_URL_REGEX = "^(https://mail.google.com/mail/u/0/#drafts).*";
+    public static final String SENT_FOLDER_URL_REGEX = "^(https://mail.google.com/mail/u/0/#sent).*";
     public static final String SCREENSHOTS_PATH_AND_NAME = "./target/screenshots/screenshot-";
     public static final String PNG = ".png";
     public static int scrCount = 0;

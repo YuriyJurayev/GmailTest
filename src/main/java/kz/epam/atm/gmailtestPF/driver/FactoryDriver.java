@@ -31,11 +31,9 @@ public class FactoryDriver {
         BrowserTypes browser = BrowserTypes.valueOf(browserName);
         switch (browser){
             case CHROME:
-                //driver = createChromeDriver();
                 driver = new CustomWebDriver(createChromeDriver());
                 break;
             default:
-                //driver = createFirefoxDriver();
                 driver = new CustomWebDriver(createFirefoxDriver());
                 break;
         }

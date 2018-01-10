@@ -11,6 +11,7 @@ import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.testng.Assert;
 import java.util.List;
+
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.IMAGE_ABSENCE_ERR_MSG;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.INCORRECT_BODY_ERR_MSG;
@@ -30,21 +31,21 @@ public class GmailCucumberSteps {
     }
 
     @When("^the user clicks compose the email button and fills recipients, the subject, the body$")
-    public void compose_new_email(List<String> values){
+    public void compose_new_email(List<String> emailInput){
         email = new Email
-                .EmailBuilder(values.get(0),values.get(1))
-                .setBody(values.get(2))
+                .EmailBuilder(emailInput.get(0),emailInput.get(1))
+                .setBody(emailInput.get(2))
                 .build();
         gmailPage.composeEmail(email);
         gmailPage.clickEmailWindowCloseButton();
     }
 
     @When("^the user clicks compose the email button and fills recipients, the subject, the body, the image$")
-    public void compose_new_email_with_image_addition(List<String> values){
+    public void compose_new_email_with_image_addition(List<String> emailInput){
         email = new Email
-                .EmailBuilder(values.get(0),values.get(1))
-                .setBody(values.get(2))
-                .setImage(values.get(3))
+                .EmailBuilder(emailInput.get(0),emailInput.get(1))
+                .setBody(emailInput.get(2))
+                .setImage(emailInput.get(3))
                 .build();
         gmailPage.composeEmail(email);
     }

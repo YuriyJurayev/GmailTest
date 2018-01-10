@@ -5,7 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class AbstractPage {
 
-    AbstractPage() {
+    protected AbstractPage() {
         PageFactory.initElements(FactoryDriver.getInstance(), this);
     }
 

@@ -22,4 +22,7 @@ public class ExplicitWait {
     public static void explicitWaitFrameToBeAvailableAndSwitchToIt( WebElement webElement) {
         wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(webElement));
     }
+    public static void explicitWaitUrlToBe(String url) {
+        wait.until(ExpectedConditions.urlMatches(url));
+    }
 }

@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
+
 public class GmailPage extends AbstractPage{
 
     private String subjectContent;
@@ -61,7 +63,6 @@ public class GmailPage extends AbstractPage{
 
     @FindBy(css = "div[gh^='tm'] div.nX")
     private WebElement deleteEmailButton;
-
 
     @FindBy(css = "button.J-at1-atl")
     private WebElement deletionApplyButton;
@@ -129,6 +130,7 @@ public class GmailPage extends AbstractPage{
         }catch (StaleElementReferenceException e){
             GActions.moveToElementAndClick(draftFolderLink);
         }
+        ExplicitWait.explicitWaitUrlToBe(DRAFT_FOLDER_URL_REGEX);
     }
     public void clickSentFolderLink(){
         try{
@@ -137,6 +139,7 @@ public class GmailPage extends AbstractPage{
         }catch (WebDriverException e){
             GActions.moveToElementAndClick(sentFolderLink);
         }
+        ExplicitWait.explicitWaitUrlToBe(SENT_FOLDER_URL_REGEX);
     }
     public void openFirstEmailInList(){
         ExplicitWait.explicitWaitUntilElementToBeClickable(firstEmailInList);
