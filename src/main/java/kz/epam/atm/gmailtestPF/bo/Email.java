@@ -5,7 +5,7 @@ public class Email {
     private final String recipients;
     private final String subject;
     private final String body;
-    private final String image;
+    private String image;
 
     private Email(EmailBuilder builder){
         this.recipients = builder.recipients;
@@ -13,7 +13,9 @@ public class Email {
         this.body = builder.body;
         this.image = builder.image;
     }
-
+    public void setImage(String image){
+        this.image = image;
+    }
     public String getRecipients() {
         return recipients;
     }
