@@ -13,9 +13,8 @@ public class GmailTest extends BaseTest {
     private Email email;
 
     @Test
-    @Parameters({"username","password"})
-    public void loginTest(String username,String password){
-        login(new User(PropertyProvider.getProperty(username), PropertyProvider.getProperty(password)));
+    public void loginTest(){
+        login(new User(PropertyProvider.getProperty("username"), PropertyProvider.getProperty("password")));
     }
     @Test(dependsOnMethods = {"loginTest"})
     @Parameters({"email_recipients","email_subject","email_body","email_image"})

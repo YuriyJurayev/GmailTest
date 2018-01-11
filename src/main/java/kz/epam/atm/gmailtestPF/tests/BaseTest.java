@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 import static kz.epam.atm.gmailtestPF.property.GlobalConstants.*;
 
 @Listeners(ScreenshotExecutor.class)
-public class BaseTest {
+public abstract class BaseTest {
 
     protected GmailPageSteps gmailPageSteps;
     private LoginPageSteps loginPageSteps;

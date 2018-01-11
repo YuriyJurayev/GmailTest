@@ -3,8 +3,6 @@
 <suite name="Suite">
     <parameter name="browser" value="FIREFOX"/>
    <test name="Compose and sent email Smoke">
-       <parameter name="username" value="username"/>
-       <parameter name="password" value="password"/>
        <parameter name="email_recipients" value="automatizationtester1@gmail.com"/>
        <parameter name="email_subject" value="This is the test mail for automatizationtester1"/>
        <parameter name="email_body" value="Some text inside the mail body for automatizationtester1"/>
