@@ -1,6 +1,8 @@
 package kz.epam.atm.gmailtestPF.pages;
 
 import kz.epam.atm.gmailtestPF.bo.User;
+import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
+import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,5 +49,13 @@ public class LoginPage extends AbstractPage{
         googleAccountIcon.click();
         ExplicitWait.explicitWaitVisibilityOfElement(logoutButton);
         logoutButton.click();
+    }
+
+
+    public boolean isOnTheMainPage(){
+        return FactoryDriver.getInstance().getCurrentUrl().matches("^(https://mail\\.google\\.com).*");
+    }
+    public boolean isLogoutButtonPresent(){
+        return DOMElementPresence.isElementPresent(getLogoutButton());
     }
 }

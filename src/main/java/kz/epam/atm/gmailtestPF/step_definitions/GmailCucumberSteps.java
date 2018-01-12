@@ -6,6 +6,7 @@ import cucumber.api.java.en.When;
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import kz.epam.atm.gmailtestPF.pages.GmailPage;
+import kz.epam.atm.gmailtestPF.pages.LoginPage;
 import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import org.testng.Assert;
@@ -26,7 +27,7 @@ public class GmailCucumberSteps {
 
     @Given("^a web browser is at the Google mail home page$")
     public void should_be_home_page(){
-        Assert.assertTrue(FactoryDriver.getInstance().getCurrentUrl().matches("^(https://mail\\.google\\.com).*"));
+        Assert.assertTrue(new LoginPage().isOnTheMainPage());
     }
 
     @When("^the user clicks compose the email button and fills recipients, the subject, the body.*")
@@ -55,7 +56,7 @@ public class GmailCucumberSteps {
     public void verify_draft_email_is_displayed_as_first_in_draft_folder() {
         gmailPage.clickDraftFolderLink();
         ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getDraftMailLabel());
-        Assert.assertTrue(isFirstEmailInListPresents(), DRAFT_EMAIL_ABSENCE_ERR_MSG);
+        Assert.assertTrue(gmailPage.isFirstEmailInListPresents(), DRAFT_EMAIL_ABSENCE_ERR_MSG);
     }
 
     @Then("^the email fields should be displayed with the equal values as user has entered$")
@@ -88,9 +89,7 @@ public class GmailCucumberSteps {
     @Then("^the email should be displayed in the sent folder$")
     public void verify_email_existence_in_sent_folder() {
         gmailPage.clickSentFolderLink();
-        Assert.assertTrue(isFirstEmailInListPresents(), EMPTY_SENT_FOLDER_ERR_MSG);
+        Assert.assertTrue(gmailPage.isFirstEmailInListPresents(), EMPTY_SENT_FOLDER_ERR_MSG);
     }
-    private boolean isFirstEmailInListPresents(){
-        return DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList());
-    }
+
 }

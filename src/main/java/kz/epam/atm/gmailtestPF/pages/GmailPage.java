@@ -2,6 +2,7 @@ package kz.epam.atm.gmailtestPF.pages;
 
 import kz.epam.atm.gmailtestPF.bo.Email;
 import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
+import kz.epam.atm.gmailtestPF.utils.DOMElementPresence;
 import kz.epam.atm.gmailtestPF.utils.ExplicitWait;
 import kz.epam.atm.gmailtestPF.utils.GActions;
 import kz.epam.atm.gmailtestPF.utils.RandomNumberGenerator;
@@ -194,5 +195,9 @@ public class GmailPage extends AbstractPage{
         selectAllEmailsCheckbox.click();
         ExplicitWait.explicitWaitUntilElementToBeClickable(deleteDraftEmailButton);
         deleteDraftEmailButton.click();
+    }
+
+    public boolean isFirstEmailInListPresents(){
+        return DOMElementPresence.isElementPresent(getFirstEmailInList());
     }
 }

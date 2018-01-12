@@ -27,10 +27,10 @@ abstract class BaseCucumberTest extends AbstractTestNGCucumberTests {
     @BeforeSuite(dependsOnMethods = "setUp")
     public void log_in(){
         loginPage = new LoginPage();
-        if(!isOnTheMainPage()) {
+        if(!loginPage.isOnTheMainPage()) {
             FactoryDriver.getInstance().get(PropertyProvider.getProperty("url"));
             loginPage.login(new User(PropertyProvider.getProperty("username"), PropertyProvider.getProperty("password")));
-            Assert.assertTrue(isLogoutButtonPresent(), LOGIN_FAIL_ERR_MSG);
+            Assert.assertTrue(loginPage.isLogoutButtonPresent(), LOGIN_FAIL_ERR_MSG);
         }
     }
 
@@ -41,16 +41,10 @@ abstract class BaseCucumberTest extends AbstractTestNGCucumberTests {
 
     @AfterSuite()
     public void logout() {
-        if(isOnTheMainPage()) {
+        if(loginPage.isOnTheMainPage()) {
             loginPage.logout();
-            Assert.assertFalse(isLogoutButtonPresent(), LOGOUT_FAIL_ERR_MSG);
+            Assert.assertFalse(loginPage.isLogoutButtonPresent(), LOGOUT_FAIL_ERR_MSG);
         }
     }
 
-    private boolean isOnTheMainPage(){
-        return FactoryDriver.getInstance().getCurrentUrl().matches("^(https://mail\\.google\\.com).*");
-    }
-    private boolean isLogoutButtonPresent(){
-        return DOMElementPresence.isElementPresent(loginPage.getLogoutButton());
-    }
 }
