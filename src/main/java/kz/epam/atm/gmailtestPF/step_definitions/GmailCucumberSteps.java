@@ -1,5 +1,6 @@
 package kz.epam.atm.gmailtestPF.step_definitions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -29,25 +30,29 @@ public class GmailCucumberSteps {
         Assert.assertTrue(FactoryDriver.getInstance().getCurrentUrl().matches("^(https://mail\\.google\\.com).*"));
     }
 
-    @When("^the user clicks compose the email button and fills recipients, the subject, the body.*")
+    @When("^the user clicks compose the email button and fills recipients, the subject, the body$")
     public void compose_new_email(List<String> emailInput){
-        Email.EmailBuilder emailBuilder = new Email
+        email = new Email
                 .EmailBuilder(emailInput.get(0),emailInput.get(1))
-                .setBody(emailInput.get(2));
-        if(emailInput.size() == 4){
-            emailBuilder.setImage(emailInput.get(3));
-        }
-        email = emailBuilder.build();
+                .setBody(emailInput.get(2))
+                .build();
         gmailPage.composeEmail(email);
-        if(emailInput.size() != 4){
-            gmailPage.clickEmailWindowCloseButton();
-        }
+        gmailPage.clickEmailWindowCloseButton();
     }
 
-    @When("^the user adds an image to the email body$")
+    @When("^the user clicks compose the email button and fills recipients, the subject, the body, the image$")
+    public void compose_new_email_with_image_addition(List<String> emailInput){
+        email = new Email
+                .EmailBuilder(emailInput.get(0),emailInput.get(1))
+                .setBody(emailInput.get(2))
+                .setImage(emailInput.get(3))
+                .build();
+        gmailPage.composeEmail(email);
+    }
+
+    @And("^the user adds an image to the email body$")
     public void add_image_to_email_body() {
         gmailPage.addImageToEmailBodyFromWeb(email);
-        gmailPage.clickEmailWindowCloseButton();
     }
 
 
@@ -55,10 +60,10 @@ public class GmailCucumberSteps {
     public void verify_draft_email_is_displayed_as_first_in_draft_folder() {
         gmailPage.clickDraftFolderLink();
         ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getDraftMailLabel());
-        Assert.assertTrue(isFirstEmailInListPresents(), DRAFT_EMAIL_ABSENCE_ERR_MSG);
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()), DRAFT_EMAIL_ABSENCE_ERR_MSG);
     }
 
-    @Then("^the email fields should be displayed with the equal values as user has entered$")
+    @And("^the email fields should be displayed with the equal values as user has entered$")
     public void verify_draft_email_equality() {
         Assert.assertEquals(gmailPage.getFirstEmailRecipientsText(), email.getRecipients(), INCORRECT_RECIPIENT_ERR_MSG);
         Assert.assertEquals(gmailPage.getFirstEmailSubjectText(), gmailPage.getSubjectContentString(), INCORRECT_SUBJECT_ERR_MSG);
@@ -82,15 +87,12 @@ public class GmailCucumberSteps {
     @Then("^the email shouldn't be displayed in the draft folder$")
     public void verify_email_absence_in_draft_folder() {
         gmailPage.clickDraftFolderLink();
-        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getEmptyEmailListSign()), DRAFT_EMAIL_PRESENCE_ERR_MSG);
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getEmptyEmailListSign()),DRAFT_EMAIL_PRESENCE_ERR_MSG);
     }
 
-    @Then("^the email should be displayed in the sent folder$")
+    @And("^the email should be displayed in the sent folder$")
     public void verify_email_existence_in_sent_folder() {
         gmailPage.clickSentFolderLink();
-        Assert.assertTrue(isFirstEmailInListPresents(), EMPTY_SENT_FOLDER_ERR_MSG);
-    }
-    private boolean isFirstEmailInListPresents(){
-        return DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList());
+        Assert.assertTrue(DOMElementPresence.isElementPresent(gmailPage.getFirstEmailInList()),EMPTY_SENT_FOLDER_ERR_MSG);
     }
 }
