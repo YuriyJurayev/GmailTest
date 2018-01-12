@@ -3,6 +3,7 @@ package kz.epam.atm.gmailtestPF.property;
 public abstract class GlobalConstants {
 
     static final String CONFIG_PROPERTIES_PATH = "src\\main\\resources\\config.properties";
+    public static String SCENARIOS_PATH = "scenarios/testng.xml";
     public static String CUCUMBER_SCENARIOS_PATH = "scenarios/cucumbertestng.xml";
     public static String TEST_OUTPUT_FOLDER_PATH = "target/test-output";
     public static final String FIREFOX_DRIVER = "firefox_driver";
