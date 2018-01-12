@@ -29,29 +29,25 @@ public class GmailCucumberSteps {
         Assert.assertTrue(FactoryDriver.getInstance().getCurrentUrl().matches("^(https://mail\\.google\\.com).*"));
     }
 
-    /*@When("^the user clicks compose the email button and fills recipients, the subject, the body")
-    public void compose_new_email(List<String> emailInput){
-        email = new Email
-                .EmailBuilder(emailInput.get(0),emailInput.get(1))
-                .setBody(emailInput.get(2))
-                .build();
-        gmailPage.composeEmail(email);
-        gmailPage.clickEmailWindowCloseButton();
-    }*/
-
     @When("^the user clicks compose the email button and fills recipients, the subject, the body.*")
     public void compose_new_email(List<String> emailInput){
-        email = new Email
+        Email.EmailBuilder emailBuilder = new Email
                 .EmailBuilder(emailInput.get(0),emailInput.get(1))
-                .setBody(emailInput.get(2))
-                .build();
+                .setBody(emailInput.get(2));
+        if(emailInput.size() == 4){
+            emailBuilder.setImage(emailInput.get(3));
+        }
+        email = emailBuilder.build();
         gmailPage.composeEmail(email);
+        if(emailInput.size() != 4){
+            gmailPage.clickEmailWindowCloseButton();
+        }
     }
 
     @When("^the user adds an image to the email body$")
-    public void add_image_to_email_body(List<String> emailInput) {
-        email.setImage(emailInput.get(0));
+    public void add_image_to_email_body() {
         gmailPage.addImageToEmailBodyFromWeb(email);
+        gmailPage.clickEmailWindowCloseButton();
     }
 
 

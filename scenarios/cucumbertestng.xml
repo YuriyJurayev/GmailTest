@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cucumber Suite">
-    <parameter name="browser" value="FIREFOX"/>
+    <parameter name="browser" value="CHROME"/>
    <test name="Compose and sent email Smoke">
         <classes>
             <class name="kz.epam.atm.gmailtestPF.tests_cucumber.GmailSmokeTest"/>
