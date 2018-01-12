@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.interactions.Mouse;
 import org.openqa.selenium.interactions.Sequence;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,10 +14,8 @@ import java.util.Set;
 
 public class CustomWebDriver extends AbstractWebDriver {
 
-    public CustomWebDriver(FirefoxDriver driver){
-        super(driver);
-    }
-    public CustomWebDriver(ChromeDriver driver){
+
+    public CustomWebDriver(RemoteWebDriver driver){
         super(driver);
     }
     @Override
