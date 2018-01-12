@@ -119,7 +119,7 @@ public class GmailPage extends AbstractPage{
         return imageInsideEmailBody;
     }
 
-    public void  clickEmailWindowCloseButton() {
+    public void clickEmailWindowCloseButton() {
         ExplicitWait.explicitWaitVisibilityOfElement(changesSavingSign);
         emailWindowCloseButton.click();
     }
