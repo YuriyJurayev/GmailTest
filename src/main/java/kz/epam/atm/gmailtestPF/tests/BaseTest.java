@@ -24,7 +24,6 @@ public abstract class BaseTest {
         FactoryDriver.setBrowserName(browserName);
         log.info("===================================================start logging new tests===================================================");
         loginPageSteps = new LoginPageSteps();
-
     }
 
     @AfterSuite(alwaysRun = true)
