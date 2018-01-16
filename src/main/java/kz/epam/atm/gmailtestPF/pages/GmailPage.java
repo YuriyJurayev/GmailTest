@@ -128,6 +128,8 @@ public class GmailPage extends AbstractPage{
             ExplicitWait.explicitWaitUntilElementToBeClickable(draftFolderLink);
             draftFolderLink.click();
         }catch (StaleElementReferenceException e){
+            log.error("!!!stale 'draft folder link' element!!!");
+            log.info("use action click");
             GActions.moveToElementAndClick(draftFolderLink);
         }
         ExplicitWait.explicitWaitUrlToBe(DRAFT_FOLDER_URL_REGEX);
@@ -137,6 +139,8 @@ public class GmailPage extends AbstractPage{
             ExplicitWait.explicitWaitUntilElementToBeClickable(sentFolderLink);
             sentFolderLink.click();
         }catch (WebDriverException e){
+            log.warn("!!!stale 'sent folder link' element!!!");
+            log.info("use action click");
             GActions.moveToElementAndClick(sentFolderLink);
         }
         ExplicitWait.explicitWaitUrlToBe(SENT_FOLDER_URL_REGEX);

@@ -12,14 +12,18 @@ public class LoginPageSteps extends AbstractSteps{
         loginPage = new LoginPage();
     }
     public LoginPageSteps openLoginPage(String url){
+        log.info("try to open the Login page");
         openPage(url);
+        log.info("on the Login page");
         return this;
     }
     public GmailPageSteps authorization(User user){
+        log.info("try to login");
         loginPage.login(user);
         return new GmailPageSteps();
     }
     public void logout() {
+        log.info("try to logout");
         loginPage.logout();
     }
 

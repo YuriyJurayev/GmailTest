@@ -2,6 +2,7 @@ package kz.epam.atm.gmailtestPF.utils;
 
 import kz.epam.atm.gmailtestPF.driver.FactoryDriver;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestResult;
@@ -14,6 +15,7 @@ public class ScreenshotExecutor extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
+        Logger.getRootLogger().info("!!!take screenshot on test failure!!!");
         takeScreenshot();
     }
 

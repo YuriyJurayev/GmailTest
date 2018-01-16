@@ -18,20 +18,27 @@ public class GmailPageSteps extends AbstractSteps{
     }
 
     public GmailPageSteps composeNewEmail(Email email){
+        log.info("compose new email");
         gmailPage.composeEmail(email);
+        log.info("email fields are filled");
         closeEmailWindow();
         return this;
     }
     public GmailPageSteps composeNewEmailWithImage(Email email){
+        log.info("compose new email");
         gmailPage.composeEmail(email);
+        log.info("add an image to email body");
         gmailPage.addImageToEmailBodyFromWeb(email);
+        log.info("email fields are filled");
         return this;
     }
     public GmailPageSteps sendCurrentEmail(){
+        log.info("send email");
         gmailPage.sendEmail();
         return this;
     }
     private GmailPageSteps closeEmailWindow(){
+        log.info("close email pop-up window");
         ExplicitWait.explicitWaitVisibilityOfElement(gmailPage.getChangesSavingSing());
         gmailPage.clickEmailWindowCloseButton();
         return this;
@@ -47,6 +54,7 @@ public class GmailPageSteps extends AbstractSteps{
     }
 
     public void deleteAllEmailsFromSentFolder(){
+        log.info("delete all emails from sent folder");
         gmailPage.deleteAllEmailsFromFolder();
     }
     public void navigateToDraftFolder(){
