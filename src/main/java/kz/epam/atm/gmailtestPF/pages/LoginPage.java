@@ -20,7 +20,7 @@ public class LoginPage extends AbstractPage{
     private WebElement nextButtonPasswordTab;
 
     @FindBy(css = "span.gbii")
-    private WebElement googleAccountIcon; /// no usage
+    private WebElement googleAccountIcon;
 
     @FindBy(id = "gb_71")
     private WebElement logoutButton;
